@@ -1,0 +1,38 @@
+{
+    "name" : "fw3_for_old/builders",
+    "description" : "Flywheel3 framework: any building library for old php versions",
+    "type" : "library",
+    "homepage" : "https://ickx.jp",
+    "license" : "MIT",
+    "authors" : [{
+            "name" : "akira wakaba",
+            "homepage" : "https://ickx.jp",
+            "role" : "lead developer"
+        }
+    ],
+    "config" : {
+        "autoloader-suffix" : "IckxFw3ForOldBuilders"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "fw3_for_old\\builders\\" : "./src/"
+        }
+    },
+    "autoload-dev" : {
+        "psr-4" : {
+            "fw3_for_old\\tests\\builders\\" : "./tests/",
+            "fw3_for_old\\ez_test\\" : "./tests/fw3_for_old/ez_test/src/"
+        }
+    },
+    "keywords" : [
+        "fw3 Flywheel3 builder"
+    ],
+    "require" : {
+        "php": ">=5.3.3",
+        "ext-mbstring" : "*",
+        "fw3_for_old/strings" : ">=1.0.0"
+    },
+    "require-dev" : {
+        "fw3_for_old/ez_test" : ">=1.0.0"
+    }
+}
