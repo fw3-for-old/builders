@@ -32,4 +32,9 @@ class CharType extends AbstractCharacterType
      * @var string  型名
      */
     const TYPE  = 'char';
+
+    /**
+     * @var int     最大桁数
+     */
+    const MAX_LENGTH    = 255;
 }

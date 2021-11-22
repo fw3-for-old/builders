@@ -28,6 +28,14 @@ use fw3_for_old\strings\converter\Convert;
 abstract class AbstractCharacterType extends AbstractDataType implements Lengthable
 {
     //==============================================
+    // consts
+    //==============================================
+    /**
+     * @var int     最小桁数
+     */
+    const MIN_LENGTH    = 0;
+
+    //==============================================
     // properties
     //==============================================
     /**
@@ -77,6 +85,16 @@ abstract class AbstractCharacterType extends AbstractDataType implements Lengtha
         if ($length !== null) {
             if (false === filter_var($length, \FILTER_VALIDATE_INT)) {
                 $this->addError(static::TYPE, sprintf('文字列長には数値のみを指定してください。length:%s', Convert::toDebugString($length, 2)));
+                return $this;
+            }
+
+            if ($length < self::MIN_LENGTH) {
+                $this->addError(static::TYPE, sprintf('文字列長は%d以上を指定してください。length:%s', self::MIN_LENGTH, Convert::toDebugString($length, 2)));
+                return $this;
+            }
+
+            if ($length > static::MAX_LENGTH) {
+                $this->addError(static::TYPE, sprintf('文字列長は%d以下を指定してください。length:%s', static::MAX_LENGTH, Convert::toDebugString($length, 2)));
                 return $this;
             }
         }

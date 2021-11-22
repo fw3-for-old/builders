@@ -32,4 +32,9 @@ class VarcharType extends AbstractCharacterType
      * @var string  型名
      */
     const TYPE  = 'varchar';
+
+    /**
+     * @var int     最大桁数
+     */
+    const MAX_LENGTH    = 65535;
 }
