@@ -34,6 +34,26 @@ class FixedPointDigit extends AbstractDataType
      */
     const TYPE  = 'fixed_point_digit';
 
+    /**
+     * @var int     最小桁数
+     */
+    const MIN_LENGTH    = 1;
+
+    /**
+     * @var int     最大桁数
+     */
+    const MAX_LENGTH    = 65;
+
+    /**
+     * @var int     最小小数点以下の桁数
+     */
+    const MIN_DECIMALS  = 0;
+
+    /**
+     * @var int     最大小数点以下の桁数
+     */
+    const MAX_DECIMALS  = 30;
+
     //==============================================
     // properties
     //==============================================
@@ -91,8 +111,13 @@ class FixedPointDigit extends AbstractDataType
             return $this;
         }
 
-        if ($length < 1) {
-            $this->addError(static::TYPE, sprintf('桁数は1以上を指定してください。length:%s', Convert::toDebugString($length, 2)));
+        if ($length < self::MIN_LENGTH) {
+            $this->addError(static::TYPE, sprintf('桁数は%d以上を指定してください。length:%s', self::MIN_LENGTH, Convert::toDebugString($length, 2)));
+            return $this;
+        }
+
+        if ($length > self::MAX_LENGTH) {
+            $this->addError(static::TYPE, sprintf('桁数は%d以下を指定してください。length:%s', self::MAX_LENGTH, Convert::toDebugString($length, 2)));
             return $this;
         }
 
@@ -106,8 +131,13 @@ class FixedPointDigit extends AbstractDataType
                 return $this;
             }
 
-            if ($decimals < 0) {
-                $this->addError(static::TYPE, sprintf('小数点以下の桁数は0以上を指定してください。decimals:%s', Convert::toDebugString($decimals, 2)));
+            if ($decimals < self::MIN_DECIMALS) {
+                $this->addError(static::TYPE, sprintf('小数点以下の桁数は%d以上を指定してください。decimals:%s', self::MIN_DECIMALS, Convert::toDebugString($decimals, 2)));
+                return $this;
+            }
+
+            if ($decimals > self::MAX_DECIMALS) {
+                $this->addError(static::TYPE, sprintf('小数点以下の桁数は%d以下を指定してください。decimals:%s', self::MAX_DECIMALS, Convert::toDebugString($decimals, 2)));
                 return $this;
             }
 
