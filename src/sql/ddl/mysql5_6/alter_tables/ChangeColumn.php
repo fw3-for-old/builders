@@ -16,71 +16,70 @@
  * @varsion     1.0.0
  */
 
-namespace fw3_for_old\builders\sql\ddl\mysql5_6;
+namespace fw3_for_old\builders\sql\ddl\mysql5_6\alter_tables;
 
+use fw3_for_old\builders\sql\ddl\mysql5_6\Column;
+use fw3_for_old\builders\sql\ddl\mysql5_6\Table;
 use fw3_for_old\builders\sql\ddl\mysql5_6\abstracts\AbstractDdlBuilder;
-use fw3_for_old\builders\sql\ddl\mysql5_6\create_definition\ColumnDefinition;
 use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\abstracts\Digitable;
-use fw3_for_old\strings\converter\Convert;
 
 /**
- * COLUM Builder
+ * ALTER TABLE tbl_name CHANGE COLUMN old_col_name new_col_name column_definition
  */
-class Column extends AbstractDdlBuilder
+class ChangeColumn extends AbstractDdlBuilder
 {
-    //==============================================
-    // consts
-    //==============================================
-    /**
-     * @var int     カラム名の最大文字列長
-     */
-    const NAME_MAX_LENGTH   = 64;
-
     //==============================================
     // properties
     //==============================================
     /**
-     * @var Table   このインデックスが所属するテーブル
+     * @var Table   テーブル
      */
     protected $table;
 
     /**
-     * @var string  カラム名
+     * @var Column  カラム
      */
-    protected $name;
+    protected $column;
 
     /**
-     * @var ColumnDefinition    カラム定義
+     * @var Column  新しいカラム名
      */
-    protected $columnDefinition;
+    protected $newColumn;
 
     //==============================================
-    // methods
+    // factorys
     //==============================================
     /**
      * constructor
      *
-     * @param   string  $name   カラム名
+     * @param   string|Table    $table  テーブル
+     * @param   string|Column   $old_column 変更前のカラム名
+     * @param   string|Column   $new_column 変更後のカラム名
      */
-    protected function __construct($name)
+    protected function __construct($table, $old_column, $new_column)
     {
-        $this->name($name);
-        $this->columnDefinition = ColumnDefinition::factory();
+        $this->table($table);
+        $this->column       = Column::factory($old_column)->table($this->table);
+        $this->newColumn    = Column::factory($new_column)->table($this->table);
     }
 
     /**
      * factory
      *
-     * @param   string  $name   カラム名
-     * @return  static  このインスタンス
+     * @param   string|Table    $table  テーブル
+     * @param   string|Column   $old_column 変更前のカラム名
+     * @param   string|Column   $new_column 変更後のカラム名
      */
-    public static function factory($name)
+    public static function factory($table, $old_column, $new_column)
     {
-        return new static($name);
+        return new static($table, $old_column, $new_column);
     }
 
+    //==============================================
+    // methods
+    //==============================================
     /**
-     * このインスタンスが所属するテーブルを設定・取得します。
+     * テーブルを設定・取得します。
      *
      * @param   null|Table  $table  テーブル
      * @return  Table|static    テーブルまたはこのインスタンス
@@ -99,30 +98,6 @@ class Column extends AbstractDdlBuilder
         return $this;
     }
 
-    /**
-     * カラム名を取得・設定します。
-     *
-     * @param   $name   string|null カラム名
-     * @return  string|static       カラム名またはこのインスタンス
-     */
-    public function name($name = null)
-    {
-        if ($name === null && func_num_args() === 0) {
-            return $this->name;
-        }
-
-        if ($name === '') {
-            throw new \Exception('カラム名が空です。');
-        }
-
-        if (($length = mb_strlen($name)) > self::NAME_MAX_LENGTH) {
-            throw new \Exception(sprintf('カラム名の最大文字列長を超過しました。name:%s, max_length:%d, length:%s', Convert::toDebugString($name, 2), self::NAME_MAX_LENGTH, $length));
-        }
-
-        $this->name = $name;
-        return $this;
-    }
-
     //----------------------------------------------
     // 型指定
     //----------------------------------------------
@@ -134,7 +109,7 @@ class Column extends AbstractDdlBuilder
      */
     public function bit($length = null)
     {
-        func_num_args() === 0 ? $this->columnDefinition->bit() : $this->columnDefinition->bit($length);
+        func_num_args() === 0 ? $this->newColumn->bit() : $this->newColumn->bit($length);
         return $this;
     }
 
@@ -146,7 +121,7 @@ class Column extends AbstractDdlBuilder
      */
     public function tinyint($unsigned = null)
     {
-        func_num_args() === 0 ? $this->columnDefinition->tinyint() : $this->columnDefinition->tinyint($unsigned);
+        func_num_args() === 0 ? $this->newColumn->tinyint() : $this->newColumn->tinyint($unsigned);
         return $this;
     }
 
@@ -158,7 +133,7 @@ class Column extends AbstractDdlBuilder
      */
     public function smallint($unsigned = null)
     {
-        func_num_args() === 0 ? $this->columnDefinition->smallint() : $this->columnDefinition->smallint($unsigned);
+        func_num_args() === 0 ? $this->newColumn->smallint() : $this->newColumn->smallint($unsigned);
         return $this;
     }
 
@@ -170,7 +145,7 @@ class Column extends AbstractDdlBuilder
      */
     public function mediumint($unsigned = null)
     {
-        func_num_args() === 0 ? $this->columnDefinition->mediumint() : $this->columnDefinition->mediumint($unsigned);
+        func_num_args() === 0 ? $this->newColumn->mediumint() : $this->newColumn->mediumint($unsigned);
         return $this;
     }
 
@@ -182,7 +157,7 @@ class Column extends AbstractDdlBuilder
      */
     public function bigint($unsigned = null)
     {
-        func_num_args() === 0 ? $this->columnDefinition->bigint() : $this->columnDefinition->bigint($unsigned);
+        func_num_args() === 0 ? $this->newColumn->bigint() : $this->newColumn->bigint($unsigned);
         return $this;
     }
 
@@ -194,7 +169,7 @@ class Column extends AbstractDdlBuilder
      */
     public function int($unsigned = null)
     {
-        func_num_args() === 0 ? $this->columnDefinition->int() : $this->columnDefinition->int($unsigned);
+        func_num_args() === 0 ? $this->newColumn->int() : $this->newColumn->int($unsigned);
         return $this;
     }
 
@@ -210,16 +185,16 @@ class Column extends AbstractDdlBuilder
     {
         switch (func_num_args()) {
             case 0:
-                $this->columnDefinition->real();
+                $this->newColumn->real();
                 break;
             case 1:
-                $this->columnDefinition->real($length);
+                $this->newColumn->real($length);
                 break;
             case 2:
-                $this->columnDefinition->real($length, $decimals);
+                $this->newColumn->real($length, $decimals);
                 break;
             case 3:
-                $this->columnDefinition->real($length, $decimals, $unsigned);
+                $this->newColumn->real($length, $decimals, $unsigned);
                 break;
         }
 
@@ -238,16 +213,16 @@ class Column extends AbstractDdlBuilder
     {
         switch (func_num_args()) {
             case 0:
-                $this->columnDefinition->double();
+                $this->newColumn->double();
                 break;
             case 1:
-                $this->columnDefinition->double($length);
+                $this->newColumn->double($length);
                 break;
             case 2:
-                $this->columnDefinition->double($length, $decimals);
+                $this->newColumn->double($length, $decimals);
                 break;
             case 3:
-                $this->columnDefinition->double($length, $decimals, $unsigned);
+                $this->newColumn->double($length, $decimals, $unsigned);
                 break;
         }
 
@@ -266,16 +241,16 @@ class Column extends AbstractDdlBuilder
     {
         switch (func_num_args()) {
             case 0:
-                $this->columnDefinition->float();
+                $this->newColumn->float();
                 break;
             case 1:
-                $this->columnDefinition->float($length);
+                $this->newColumn->float($length);
                 break;
             case 2:
-                $this->columnDefinition->float($length, $decimals);
+                $this->newColumn->float($length, $decimals);
                 break;
             case 3:
-                $this->columnDefinition->float($length, $decimals, $unsigned);
+                $this->newColumn->float($length, $decimals, $unsigned);
                 break;
         }
 
@@ -294,16 +269,16 @@ class Column extends AbstractDdlBuilder
     {
         switch (func_num_args()) {
             case 0:
-                $this->columnDefinition->decimal();
+                $this->newColumn->decimal();
                 break;
             case 1:
-                $this->columnDefinition->decimal($length);
+                $this->newColumn->decimal($length);
                 break;
             case 2:
-                $this->columnDefinition->decimal($length, $decimals);
+                $this->newColumn->decimal($length, $decimals);
                 break;
             case 3:
-                $this->columnDefinition->decimal($length, $decimals, $unsigned);
+                $this->newColumn->decimal($length, $decimals, $unsigned);
                 break;
         }
 
@@ -321,16 +296,16 @@ class Column extends AbstractDdlBuilder
     {
         switch (func_num_args()) {
             case 0:
-                $this->columnDefinition->numeric();
+                $this->newColumn->numeric();
                 break;
             case 1:
-                $this->columnDefinition->numeric($length);
+                $this->newColumn->numeric($length);
                 break;
             case 2:
-                $this->columnDefinition->numeric($length, $decimals);
+                $this->newColumn->numeric($length, $decimals);
                 break;
             case 3:
-                $this->columnDefinition->numeric($length, $decimals, $unsigned);
+                $this->newColumn->numeric($length, $decimals, $unsigned);
                 break;
         }
 
@@ -344,7 +319,7 @@ class Column extends AbstractDdlBuilder
      */
     public function date()
     {
-        $this->columnDefinition->date();
+        $this->newColumn->date();
         return $this;
     }
 
@@ -355,7 +330,7 @@ class Column extends AbstractDdlBuilder
      */
     public function time()
     {
-        $this->columnDefinition->time();
+        $this->newColumn->time();
         return $this;
     }
 
@@ -366,7 +341,7 @@ class Column extends AbstractDdlBuilder
      */
     public function timestamp()
     {
-        $this->columnDefinition->timestamp();
+        $this->newColumn->timestamp();
         return $this;
     }
 
@@ -377,7 +352,7 @@ class Column extends AbstractDdlBuilder
      */
     public function datetime()
     {
-        $this->columnDefinition->datetime();
+        $this->newColumn->datetime();
         return $this;
     }
 
@@ -388,7 +363,7 @@ class Column extends AbstractDdlBuilder
      */
     public function year()
     {
-        $this->columnDefinition->year();
+        $this->newColumn->year();
         return $this;
     }
 
@@ -400,7 +375,7 @@ class Column extends AbstractDdlBuilder
      */
     public function char($length = null)
     {
-        func_num_args() === 0 ? $this->columnDefinition->char() : $this->columnDefinition->char($length);
+        func_num_args() === 0 ? $this->newColumn->char() : $this->newColumn->char($length);
         return $this;
     }
 
@@ -412,7 +387,7 @@ class Column extends AbstractDdlBuilder
      */
     public function varchar($length = null)
     {
-        func_num_args() === 0 ? $this->columnDefinition->varchar() : $this->columnDefinition->varchar($length);
+        func_num_args() === 0 ? $this->newColumn->varchar() : $this->newColumn->varchar($length);
         return $this;
     }
 
@@ -424,7 +399,7 @@ class Column extends AbstractDdlBuilder
      */
     public function text($binary = false)
     {
-        func_num_args() === 0 ? $this->columnDefinition->text() : $this->columnDefinition->text($binary);
+        func_num_args() === 0 ? $this->newColumn->text() : $this->newColumn->text($binary);
         return $this;
     }
 
@@ -436,7 +411,7 @@ class Column extends AbstractDdlBuilder
      */
     public function mediumtext($binary = false)
     {
-        func_num_args() === 0 ? $this->columnDefinition->mediumtext() : $this->columnDefinition->mediumtext($binary);
+        func_num_args() === 0 ? $this->newColumn->mediumtext() : $this->newColumn->mediumtext($binary);
         return $this;
     }
 
@@ -448,7 +423,7 @@ class Column extends AbstractDdlBuilder
      */
     public function longtext($binary = false)
     {
-        func_num_args() === 0 ? $this->columnDefinition->longtext() : $this->columnDefinition->longtext($binary);
+        func_num_args() === 0 ? $this->newColumn->longtext() : $this->newColumn->longtext($binary);
         return $this;
     }
 
@@ -462,7 +437,7 @@ class Column extends AbstractDdlBuilder
      */
     public function unsigned()
     {
-        $this->columnDefinition->unsigned();
+        $this->newColumn->unsigned();
         return $this;
     }
 
@@ -473,7 +448,7 @@ class Column extends AbstractDdlBuilder
      */
     public function signed()
     {
-        $this->columnDefinition->signed();
+        $this->newColumn->signed();
         return $this;
     }
 
@@ -484,7 +459,7 @@ class Column extends AbstractDdlBuilder
      */
     public function binary()
     {
-        $this->columnDefinition->binary();
+        $this->newColumn->binary();
         return $this;
     }
 
@@ -495,7 +470,7 @@ class Column extends AbstractDdlBuilder
      */
     public function nonBinary()
     {
-        $this->columnDefinition->nonBinary();
+        $this->newColumn->nonBinary();
         return $this;
     }
 
@@ -510,10 +485,10 @@ class Column extends AbstractDdlBuilder
     {
         switch (func_num_args()) {
             case 1:
-                $this->columnDefinition->setDigit($length);
+                $this->newColumn->setDigit($length);
                 break;
             case 2:
-                $this->columnDefinition->setDigit($length, $decimals);
+                $this->newColumn->setDigit($length, $decimals);
                 break;
         }
 
@@ -527,7 +502,7 @@ class Column extends AbstractDdlBuilder
      */
     public function notNull()
     {
-        $this->columnDefinition->notNull();
+        $this->newColumn->notNull();
         return $this;
     }
 
@@ -538,7 +513,7 @@ class Column extends AbstractDdlBuilder
      */
     public function nullConstrain()
     {
-        $this->columnDefinition->nullConstrain();
+        $this->newColumn->nullConstrain();
         return $this;
     }
 
@@ -549,7 +524,7 @@ class Column extends AbstractDdlBuilder
      */
     public function unsetNullConstrain()
     {
-        $this->columnDefinition->unsetNullConstrain();
+        $this->newColumn->unsetNullConstrain();
         return $this;
     }
 
@@ -560,7 +535,7 @@ class Column extends AbstractDdlBuilder
      */
     public function autoIncrement()
     {
-        $this->columnDefinition->autoIncrement();
+        $this->newColumn->autoIncrement();
         return $this;
     }
 
@@ -571,7 +546,7 @@ class Column extends AbstractDdlBuilder
      */
     public function unsetAutoIncrement()
     {
-        $this->columnDefinition->unsetAutoIncrement();
+        $this->newColumn->unsetAutoIncrement();
         return $this;
     }
 
@@ -582,7 +557,7 @@ class Column extends AbstractDdlBuilder
      */
     public function unique()
     {
-        $this->columnDefinition->unique();
+        $this->newColumn->unique();
         return $this;
     }
 
@@ -593,7 +568,7 @@ class Column extends AbstractDdlBuilder
      */
     public function primary()
     {
-        $this->columnDefinition->primary();
+        $this->newColumn->primary();
         return $this;
     }
 
@@ -604,7 +579,7 @@ class Column extends AbstractDdlBuilder
      */
     public function unsetKey()
     {
-        $this->columnDefinition->unsetKey();
+        $this->newColumn->unsetKey();
         return $this;
     }
 
@@ -616,7 +591,7 @@ class Column extends AbstractDdlBuilder
      */
     public function defaultValue($default_value)
     {
-        $this->columnDefinition->defaultValue($default_value);
+        $this->newColumn->defaultValue($default_value);
         return $this;
     }
 
@@ -629,7 +604,7 @@ class Column extends AbstractDdlBuilder
      */
     public function comment($comment, $map = array())
     {
-        $this->columnDefinition->comment($comment, $map);
+        $this->newColumn->comment($comment, $map);
         return $this;
     }
 
@@ -641,7 +616,7 @@ class Column extends AbstractDdlBuilder
      */
     public function fixed()
     {
-        $this->columnDefinition->fixed();
+        $this->newColumn->fixed();
         return $this;
     }
 
@@ -652,7 +627,7 @@ class Column extends AbstractDdlBuilder
      */
     public function dynamic()
     {
-        $this->columnDefinition->dynamic();
+        $this->newColumn->dynamic();
         return $this;
     }
 
@@ -663,7 +638,7 @@ class Column extends AbstractDdlBuilder
      */
     public function defaultColumnFormat()
     {
-        $this->columnDefinition->defaultFormat();
+        $this->newColumn->defaultFormat();
         return $this;
     }
 
@@ -674,7 +649,7 @@ class Column extends AbstractDdlBuilder
      */
     public function unsetColumnFormat()
     {
-        $this->columnDefinition->unsetFormat();
+        $this->newColumn->unsetFormat();
         return $this;
     }
 
@@ -685,7 +660,7 @@ class Column extends AbstractDdlBuilder
      */
     public function disk()
     {
-        $this->columnDefinition->disk();
+        $this->newColumn->disk();
         return $this;
     }
 
@@ -696,7 +671,7 @@ class Column extends AbstractDdlBuilder
      */
     public function memory()
     {
-        $this->columnDefinition->memory();
+        $this->newColumn->memory();
         return $this;
     }
 
@@ -707,7 +682,7 @@ class Column extends AbstractDdlBuilder
      */
     public function defaultStorage()
     {
-        $this->columnDefinition->defaultFormat();
+        $this->newColumn->defaultFormat();
         return $this;
     }
 
@@ -718,7 +693,7 @@ class Column extends AbstractDdlBuilder
      */
     public function unsetStorage()
     {
-        $this->columnDefinition->unsetFormat();
+        $this->newColumn->unsetFormat();
         return $this;
     }
 
@@ -726,11 +701,27 @@ class Column extends AbstractDdlBuilder
     // builder
     //----------------------------------------------
     /**
-     * Columnを文字列表現にして返します。
+     * このテーブルを文字列表現にして返します。
+     *
+     * @return  string  このテーブルの文字列表現
      */
     public function build()
     {
-        return implode(' ', $this->getState());
+        //----------------------------------------------
+        // build
+        //----------------------------------------------
+        // ALTER TABLE tbl_name CHANGE COLUMN old_col_name new_col_name column_definition
+        $state  = $this->getState();
+
+        $ddl    = array(
+            'ALTER TABLE',
+            $state['table_name'],
+            'CHANGE COLUMN',
+            $state['old_column'],
+            $state['new_column'],
+        );
+
+        return implode(' ', $ddl);
     }
 
     /**
@@ -740,18 +731,10 @@ class Column extends AbstractDdlBuilder
      */
     public function getState()
     {
-        $column_definition  = $this->columnDefinition->getState();
-
         return array(
-            'name'              => sprintf('`%s`', $this->name),
-            'date_type'         => $column_definition['data_type'],
-            'not_null'          => $column_definition['not_null'],
-            'default'           => $column_definition['default'],
-            'auto_increment'    => $column_definition['auto_increment'],
-            'key'               => $column_definition['key'],
-            'comment'           => $column_definition['comment'],
-            'column_format'     => $column_definition['column_format'],
-            'storage'           => $column_definition['storage'],
+            'table_name'    => sprintf('`%s`', $this->table->getName()),
+            'old_column'    => sprintf('`%s`', $this->column->name()),
+            'new_column'    => $this->newColumn->build(),
         );
     }
 
@@ -760,16 +743,8 @@ class Column extends AbstractDdlBuilder
      */
     public function __clone()
     {
-        $this->columnDefinition = clone $this->columnDefinition;
-    }
-
-    /**
-     * 所属先を新しいテーブルに差し替えて新しいインスタンスとして返します。
-     *
-     * @param   static  新しいインスタンス
-     */
-    public function withTable($table)
-    {
-        return $this->with()->table($table);
+        $this->table        = clone $this->table;
+        $this->column       = $this->column->withTable($this->table);
+        $this->newColumn    = $this->newColumn->withTable($this->table);
     }
 }

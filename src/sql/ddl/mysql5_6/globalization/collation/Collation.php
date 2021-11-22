@@ -395,4 +395,14 @@ class Collation extends AbstractDdlBuilder
 
         return sprintf('DEFAULT COLLATE=%s', $collation);
     }
+
+    /**
+     * __clone
+     */
+    public function __clone()
+    {
+        if (is_object($this->charset)) {
+            $this->charset  = clone $this->charset;
+        }
+    }
 }

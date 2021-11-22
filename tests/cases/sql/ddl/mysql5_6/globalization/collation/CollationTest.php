@@ -484,6 +484,22 @@ class CollationTest extends AbstractTest
         $this->assertSame($expected, $actual);
     }
 
+    public function testWith()
+    {
+        //----------------------------------------------
+        $collation  = Collation::factory();
+
+        $withCollation  = $collation->with();
+
+        $expected   = $collation;
+        $actual     = $withCollation;
+        $this->assertNotSame($expected, $actual);
+
+        $expected   = $collation->charset();
+        $actual     = $withCollation->charset();
+        $this->assertNotSame($expected, $actual);
+    }
+
     public function testCharset()
     {
         //----------------------------------------------

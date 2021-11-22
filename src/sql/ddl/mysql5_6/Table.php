@@ -49,12 +49,12 @@ class Table extends AbstractDdlBuilder
     protected $defaultCharset;
 
     /**
-     * @var Column[]    column
+     * @var Column[]    カラムビルダマップ
      */
-    protected $columns          = array();
+    protected $columnMap    = array();
 
     /**
-     * @var Index[] index
+     * @var Index[] インデックスリスト
      */
     protected $indexes          = array();
 
@@ -316,7 +316,7 @@ class Table extends AbstractDdlBuilder
     }
 
     /**
-     * カラムインスタンスを返します。
+     * カラムビルダを返します。
      *
      * @param   string  $column_name    カラム名
      * @return  Column  カラムビルダ
@@ -327,15 +327,59 @@ class Table extends AbstractDdlBuilder
     }
 
     /**
+     * カラムビルダを生成し、テーブルに追加してから返します。
+     *
+     * @param   string  $column_name    カラム名
+     * @return  Column  カラムビルダ
+     */
+    public function addColumn($column_name)
+    {
+        $column = $this->column($column_name);
+        $this->add($column);
+        return $column;
+    }
+
+    /**
+     * カラムビルダを取得します。
+     *
+     * @param   string  $name   カラム名
+     * @return  Column  カラムビルダ
+     */
+    public function getColumn($name)
+    {
+        return isset($this->columnMap[$name]) ? $this->columnMap[$name] : null;
+    }
+
+    /**
+     * カラムビルダマップを取得します。
+     *
+     * @return  array   カラムビルダマップ
+     */
+    public function getColumnMap()
+    {
+        return $this->columnMap;
+    }
+
+    /**
+     * インデックスビルダリストを取得します。
+     *
+     * @return  array   インデックスビルダリスト
+     */
+    public function getIndices()
+    {
+        return $this->indexes;
+    }
+
+    /**
      * プライマリキーを設定します。
      *
-     * @param   array   $columns    プライマリキーとするカラム
+     * @param   array   $columnMap    プライマリキーとするカラム
      * @return  Index   インデックスビルダ
      */
-    public function primaryKey($columns = array())
+    public function primaryKey($columnMap = array())
     {
         $index = Index::factory($this, null)->primaryKey();
-        foreach ((array) $columns as $column) {
+        foreach ((array) $columnMap as $column) {
             $index->column($column);
         }
 
@@ -345,18 +389,32 @@ class Table extends AbstractDdlBuilder
     }
 
     /**
-     * インデックスを追加します。
+     * インデックスビルダを返します。
      *
-     * @param   array   $columns    インデックス対象とするカラム
+     * @param   array   $columnMap    インデックス対象とするカラム
      * @param   string  $index_name インデックス名
      * @return  Index   インデックスビルダ
      */
-    public function index($columns = array(), $index_name = null)
+    public function index($columnMap = array(), $index_name = null)
     {
         $index = Index::factory($this, $index_name);
-        foreach ((array) $columns as $column) {
+        foreach ((array) $columnMap as $column) {
             $index->column($column);
         }
+        return $index;
+    }
+
+    /**
+     * インデックスビルダを構築し、TableBuilderに追加してから返します。
+     *
+     * @param   array   $columnMap    カラム
+     * @param   string  $index_name インデックス名
+     * @return  Index   インデックスビルダ
+     */
+    public function addIndex($columnMap = array(), $index_name = null)
+    {
+        $index  = $this->index($columnMap, $index_name);
+        $this->add($index);
         return $index;
     }
 
@@ -382,12 +440,12 @@ class Table extends AbstractDdlBuilder
 
         foreach ($items as $item) {
             if ($item instanceof Column || is_subclass_of($item, "\\fw3_for_old\\builders\\sql\\ddl\\mysql5_6\\Column")) {
-                $this->columns[]    = $item;
+                $this->columnMap[$item->name()]    = $item->table($this);
                 continue;
             }
 
             if ($item instanceof Index || is_subclass_of($item, "\\fw3_for_old\\builders\\sql\\ddl\\mysql5_6\\Index")) {
-                $this->indexes[]    = $item;
+                $this->indexes[]    = $item->table($this);
                 continue;
             }
         }
@@ -395,6 +453,9 @@ class Table extends AbstractDdlBuilder
         return $this;
     }
 
+    //----------------------------------------------
+    // builder
+    //----------------------------------------------
     /**
      * このテーブルを文字列表現にして返します。
      *
@@ -412,9 +473,9 @@ class Table extends AbstractDdlBuilder
         //----------------------------------------------
         // column part
         //----------------------------------------------
-        if (!empty($this->columns)) {
-            $columnTabel    = Tabular::disposableFactory()->tabWidth(2);
-            foreach ($this->columns as $column) {
+        if (!empty($this->columnMap)) {
+            $columnTabel    = Tabular::disposableFactory()->tabWidth(2)->nullColumnSkip(true);
+            foreach ($this->columnMap as $column) {
                 $columnTabel->addRow($column->getState());
             }
 
@@ -468,5 +529,35 @@ class Table extends AbstractDdlBuilder
         // build
         //----------------------------------------------
         return implode(' ', $ddl) . ';';
+    }
+
+    /**
+     * __clone
+     */
+    public function __clone()
+    {
+        if (is_object($this->engine)) {
+            $this->engine           = clone $this->engine;
+        }
+
+        if (is_object($this->defaultCharset)) {
+            $this->defaultCharset   = clone $this->defaultCharset;
+        }
+
+        foreach ($this->columnMap as $name => $column) {
+            if (is_object($column)) {
+                $this->columnMap[$name] = clone $column;
+            }
+        }
+
+        foreach ($this->indexes as $idx => $index) {
+            if (is_object($index)) {
+                $this->indexes[$idx]   = clone $index;
+            }
+        }
+
+        if (is_object($this->collation)) {
+            $this->collation    = clone $this->collation;
+        }
     }
 }

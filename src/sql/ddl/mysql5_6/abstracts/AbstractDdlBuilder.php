@@ -86,17 +86,35 @@ abstract class AbstractDdlBuilder
     /**
      * エラー内容を取り込みます。
      *
-     * @param   AbstractDdlBuilder|array  $canHaveError   エラー
+     * @param   static|array    $canHaveError   エラー
+     * @param   null|string     $force_name     強制したいエラー名
      * @return  static  このインスタンス
      */
-    public function mergeErrors($canHaveError)
+    public function mergeErrors($canHaveError, $force_name = null)
     {
         foreach (is_object($canHaveError) && is_subclass_of($canHaveError, __CLASS__) ? $canHaveError->getErrors() : $canHaveError as $name => $messages) {
             foreach ($messages as $message) {
-                $this->errors[$name][]  = $message;
+                $this->errors[$force_name === null ? $name : $force_name][]  = $message;
             }
         }
 
         return $this;
+    }
+
+    /**
+     * このインスタンスをクローンして返します。
+     *
+     * @return  static  このインスタンス
+     */
+    public function with()
+    {
+        return clone $this;
+    }
+
+    /**
+     * __clone
+     */
+    public function __clone()
+    {
     }
 }

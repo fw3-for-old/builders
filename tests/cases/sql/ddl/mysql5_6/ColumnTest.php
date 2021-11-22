@@ -19,6 +19,7 @@
 namespace fw3_for_old\tests\builders\sql\ddl\mysql5_6;
 
 use fw3_for_old\builders\sql\ddl\mysql5_6\Column;
+use fw3_for_old\builders\sql\ddl\mysql5_6\Table;
 use fw3_for_old\ez_test\test_unit\AbstractTest;
 use fw3_for_old\strings\converter\Convert;
 
@@ -44,6 +45,27 @@ class ColumnTest extends AbstractTest
         $expected   = $name;
         $actual     = $column->name();
         $this->assertSame($expected, $actual);
+
+        //----------------------------------------------
+        $expected   = null;
+        $actual     = $column->table();
+        $this->assertSame($expected, $actual);
+
+        //----------------------------------------------
+        $table  = Table::factory('test_table');
+
+        $expected   = self::CLASS_PATH;
+        $actual     = $column->table($table);
+        $this->assertInstanceOf($expected, $actual);
+
+        $expected   = $table;
+        $actual     = $column->table();
+        $this->assertSame($expected, $actual);
+
+        //----------------------------------------------
+        $expected   = $column;
+        $actual     = $column->with();
+        $this->assertNotSame($expected, $actual);
     }
 
     public function testName()
@@ -116,7 +138,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'bit';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -126,7 +148,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'bit(10)';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -136,7 +158,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'tinyint';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -148,7 +170,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'tinyint unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -158,7 +180,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'smallint';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -170,7 +192,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'smallint unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -180,7 +202,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'mediumint';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -192,7 +214,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'mediumint unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -202,7 +224,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'bigint';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -214,7 +236,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'bigint unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -224,7 +246,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'int';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -236,7 +258,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'int unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -246,7 +268,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'real';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -258,7 +280,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'real unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -268,7 +290,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'real(10, 2)';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -280,7 +302,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'real(10, 2) unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -290,7 +312,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'double';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -302,7 +324,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'double unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -312,7 +334,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'double(10, 2)';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -324,7 +346,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'double(10, 2) unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -334,7 +356,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'float';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -346,7 +368,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'float unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -356,7 +378,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'float(10, 2)';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -368,7 +390,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'float(10, 2) unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -378,7 +400,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'decimal';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -390,7 +412,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'decimal unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -400,7 +422,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'decimal(10, 2)';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -412,7 +434,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'decimal(10, 2) unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -422,7 +444,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'numeric';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -434,7 +456,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'numeric unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -444,7 +466,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'numeric(10, 2)';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -456,7 +478,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'numeric(10, 2) unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -466,7 +488,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'date';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -476,7 +498,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'time';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -486,7 +508,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'timestamp';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -496,7 +518,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'datetime';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -506,7 +528,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'year';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -516,7 +538,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'char(10)';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -526,7 +548,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'varchar(10)';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -536,7 +558,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'text';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -548,7 +570,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'text binary';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -558,7 +580,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'mediumtext';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -570,7 +592,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'mediumtext binary';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -580,7 +602,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'longtext';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
@@ -592,7 +614,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'longtext binary';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
     }
 
@@ -609,7 +631,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'tinyint unsigned';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
     }
 
@@ -626,7 +648,7 @@ class ColumnTest extends AbstractTest
         $state  = $column->getState();
 
         $expected   = 'text binary';
-        $actual     = $state['type'];
+        $actual     = $state['date_type'];
         $this->assertSame($expected, $actual);
     }
 
@@ -641,7 +663,7 @@ class ColumnTest extends AbstractTest
 
         $state  = $column->getState();
 
-        $expected   = '';
+        $expected   = null;
         $actual     = $state['not_null'];
         $this->assertSame($expected, $actual);
 
@@ -669,7 +691,7 @@ class ColumnTest extends AbstractTest
 
         $state  = $column->getState();
 
-        $expected   = '';
+        $expected   = null;
         $actual     = $state['auto_increment'];
         $this->assertSame($expected, $actual);
 
@@ -697,7 +719,7 @@ class ColumnTest extends AbstractTest
 
         $state  = $column->getState();
 
-        $expected   = '';
+        $expected   = null;
         $actual     = $state['default'];
         $this->assertSame($expected, $actual);
 
@@ -727,7 +749,7 @@ class ColumnTest extends AbstractTest
 
         $state  = $column->getState();
 
-        $expected   = '';
+        $expected   = null;
         $actual     = $state['comment'];
         $this->assertSame($expected, $actual);
 

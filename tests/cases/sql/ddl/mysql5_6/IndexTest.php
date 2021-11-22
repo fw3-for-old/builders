@@ -46,6 +46,27 @@ class IndexTest extends AbstractTest
         $expected   = self::CLASS_PATH;
         $actual     = $index;
         $this->assertInstanceOf($expected, $actual);
+
+        //----------------------------------------------
+        $expected   = $table;
+        $actual     = $index->table();
+        $this->assertSame($expected, $actual);
+
+        //----------------------------------------------
+        $table2  = Table::factory('test_table2');
+
+        $expected   = self::CLASS_PATH;
+        $actual     = $index->table($table2);
+        $this->assertInstanceOf($expected, $actual);
+
+        $expected   = $table2;
+        $actual     = $index->table();
+        $this->assertSame($expected, $actual);
+
+        //----------------------------------------------
+        $expected   = $index;
+        $actual     = $index->with();
+        $this->assertNotSame($expected, $actual);
     }
 
     public function testName()
