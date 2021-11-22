@@ -94,7 +94,7 @@ class Index extends AbstractDdlBuilder
      */
     protected function __construct($table, $name = null)
     {
-        $this->table    = $table;
+        $this->table($table);
         $this->name($name);
     }
 
@@ -107,7 +107,27 @@ class Index extends AbstractDdlBuilder
      */
     public static function factory($table, $name = null)
     {
-        return new static($table, $name = null);
+        return new static($table, $name);
+    }
+
+    /**
+     * このインスタンスが所属するテーブルを設定・取得します。
+     *
+     * @param   null|Table  $table  テーブル
+     * @return  Table|static    テーブルまたはこのインスタンス
+     */
+    public function table($table = null)
+    {
+        if ($table === null && func_num_args() === 0) {
+            return $this->table;
+        }
+
+        if (!($table instanceof Table)) {
+            $table  = Table::factory($table);
+        }
+
+        $this->table    = $table;
+        return $this;
     }
 
     /**
@@ -217,6 +237,9 @@ class Index extends AbstractDdlBuilder
         return $this;
     }
 
+    //----------------------------------------------
+    // builder
+    //----------------------------------------------
     /**
      * このインデックスを文字列表現にして返します。
      *
@@ -308,5 +331,15 @@ class Index extends AbstractDdlBuilder
             'column'    => sprintf('(%s)', $index_col_names),
             'comment'   => $this->comment !== null ? sprintf('COMMENT \'%s\'', $this->comment) : '',
         );
+    }
+
+    /**
+     * 所属先を新しいテーブルに差し替えて新しいインスタンスとして返します。
+     *
+     * @param   static  新しいインスタンス
+     */
+    public function withTable($table)
+    {
+        return $this->with()->table($table);
     }
 }

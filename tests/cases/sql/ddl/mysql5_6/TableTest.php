@@ -23,7 +23,6 @@ use fw3_for_old\builders\sql\ddl\mysql5_6\globalization\collation\Collation;
 use fw3_for_old\builders\sql\ddl\mysql5_6\storage_engine\StorageEngine;
 use fw3_for_old\ez_test\test_unit\AbstractTest;
 use fw3_for_old\strings\converter\Convert;
-use fw3_for_old\strings\tabular\Tabular;
 
 /**
  * CREATE TABLE Builder
@@ -50,6 +49,82 @@ class TableTest extends AbstractTest
         $expected   = $name;
         $actual     = $table->getName();
         $this->assertSame($expected, $actual);
+    }
+
+    public function testClone()
+    {
+        $name           = 'test_table';
+        $column_name    = 'test_column';
+
+        $table  = Table::factory($name);
+
+        $table->add(function ($table) use ($column_name) {
+            $table->addColumn($column_name);
+            $table->addIndex($column_name);
+        });
+
+        $withTable  = $table->with();
+
+        //----------------------------------------------
+        $expected   = self::CLASS_PATH;
+        $actual     = $withTable;
+        $this->assertInstanceOf($expected, $actual);
+
+        //----------------------------------------------
+        $expected   = $name;
+        $actual     = $withTable->getName();
+        $this->assertSame($expected, $actual);
+
+        //----------------------------------------------
+        $expected   = $table;
+        $actual     = $table;
+        $this->assertSame($expected, $actual);
+
+        $expected   = $table->getColumn($column_name);
+        $actual     = $table->getColumn($column_name);
+        $this->assertSame($expected, $actual);
+
+        $expected   = $table->getColumnMap();
+        $actual     = $table->getColumnMap();
+        $this->assertSame($expected, $actual);
+
+        $expected   = $table->getIndices();
+        $actual     = $table->getIndices();
+        $this->assertSame($expected, $actual);
+
+        //----------------------------------------------
+        $expected   = $withTable;
+        $actual     = $withTable;
+        $this->assertSame($expected, $actual);
+
+        $expected   = $withTable->getColumn($column_name);
+        $actual     = $withTable->getColumn($column_name);
+        $this->assertSame($expected, $actual);
+
+        $expected   = $withTable->getColumnMap();
+        $actual     = $withTable->getColumnMap();
+        $this->assertSame($expected, $actual);
+
+        $expected   = $withTable->getIndices();
+        $actual     = $withTable->getIndices();
+        $this->assertSame($expected, $actual);
+
+        //----------------------------------------------
+        $expected   = $table;
+        $actual     = $withTable;
+        $this->assertNotSame($expected, $actual);
+
+        $expected   = $table->getColumn($column_name);
+        $actual     = $withTable->getColumn($column_name);
+        $this->assertNotSame($expected, $actual);
+
+        $expected   = $table->getColumnMap();
+        $actual     = $withTable->getColumnMap();
+        $this->assertNotSame($expected, $actual);
+
+        $expected   = $table->getIndices();
+        $actual     = $withTable->getIndices();
+        $this->assertNotSame($expected, $actual);
     }
 
     public function testEngine()
@@ -354,6 +429,21 @@ class TableTest extends AbstractTest
         $expected   = self::COLUMN_CLASS_PATH;
         $actual     = $table->column($column_name);
         $this->assertInstanceOf($expected, $actual);
+
+        //----------------------------------------------
+        $table  = Table::factory($name);
+
+        $column_name    = 'test_column';
+
+        $column = $table->addColumn($column_name);
+
+        $expected   = self::COLUMN_CLASS_PATH;
+        $actual     = $column;
+        $this->assertInstanceOf($expected, $actual);
+
+        $expected   = $column;
+        $actual     = $table->getColumn($column_name);
+        $this->assertInstanceOf($expected, $actual);
     }
 
     public function testIndex()
@@ -365,6 +455,15 @@ class TableTest extends AbstractTest
 
         $expected   = self::INDEX_CLASS_PATH;
         $actual     = $table->index();
+        $this->assertInstanceOf($expected, $actual);
+
+        //----------------------------------------------
+        $table  = Table::factory($name);
+
+        $index  = $table->addIndex('test_column_1');
+
+        $expected   = self::INDEX_CLASS_PATH;
+        $actual     = $index;
         $this->assertInstanceOf($expected, $actual);
     }
 
@@ -503,13 +602,13 @@ EOL;
         if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
             $expected   = <<<EOL
 CREATE TABLE `test_table` (
-  `primary_id`    int unsigned  NOT NULL              AUTO_INCREMENT  COMMENT 'プライマリID',
-  `secondary_id`  int unsigned  NOT NULL                              COMMENT 'セカンダリID',
-  `name`          varchar(50)             DEFAULT ''                  COMMENT '名前',
-  `sex`           tinyint                 DEFAULT '0'                 COMMENT '性別 const:{"unknown":[0,"未選択"],"male":[1,"男性"],"female":[2,"女性"],"other":[3,"その他"]}',
-  `mail_address`  varchar(191)  NOT NULL                              COMMENT '連絡先メールアドレス',
-  `star`          int                     DEFAULT '0'                 COMMENT 'いいねの数',
-  `remarks`       text                                                COMMENT '備考',
+  `primary_id`    int unsigned  NOT NULL                AUTO_INCREMENT  COMMENT 'プライマリID',
+  `secondary_id`  int unsigned  NOT NULL                                COMMENT 'セカンダリID',
+  `name`          varchar(50)             DEFAULT null                  COMMENT '名前',
+  `sex`           tinyint                 DEFAULT '0'                   COMMENT '性別 const:{"unknown":[0,"未選択"],"male":[1,"男性"],"female":[2,"女性"],"other":[3,"その他"]}',
+  `mail_address`  varchar(191)  NOT NULL                                COMMENT '連絡先メールアドレス',
+  `star`          int                     DEFAULT '0'                   COMMENT 'いいねの数',
+  `remarks`       text                                                  COMMENT '備考',
   PRIMARY KEY (`primary_id`),
   INDEX         idx_mul01_test_table        (`secondary_id`, `name`),
   UNIQUE INDEX  idx_mail_address_test_table (`mail_address`)
@@ -518,13 +617,13 @@ EOL;
         } else {
             $expected   = <<<EOL
 CREATE TABLE `test_table` (
-  `primary_id`    int unsigned  NOT NULL              AUTO_INCREMENT  COMMENT 'プライマリID',
-  `secondary_id`  int unsigned  NOT NULL                              COMMENT 'セカンダリID',
-  `name`          varchar(50)             DEFAULT ''                  COMMENT '名前',
-  `sex`           tinyint                 DEFAULT '0'                 COMMENT '性別 const:{"unknown":[0,"\u672a\u9078\u629e"],"male":[1,"\u7537\u6027"],"female":[2,"\u5973\u6027"],"other":[3,"\u305d\u306e\u4ed6"]}',
-  `mail_address`  varchar(191)  NOT NULL                              COMMENT '連絡先メールアドレス',
-  `star`          int                     DEFAULT '0'                 COMMENT 'いいねの数',
-  `remarks`       text                                                COMMENT '備考',
+  `primary_id`    int unsigned  NOT NULL                AUTO_INCREMENT  COMMENT 'プライマリID',
+  `secondary_id`  int unsigned  NOT NULL                                COMMENT 'セカンダリID',
+  `name`          varchar(50)             DEFAULT null                  COMMENT '名前',
+  `sex`           tinyint                 DEFAULT '0'                   COMMENT '性別 const:{"unknown":[0,"\u672a\u9078\u629e"],"male":[1,"\u7537\u6027"],"female":[2,"\u5973\u6027"],"other":[3,"\u305d\u306e\u4ed6"]}',
+  `mail_address`  varchar(191)  NOT NULL                                COMMENT '連絡先メールアドレス',
+  `star`          int                     DEFAULT '0'                   COMMENT 'いいねの数',
+  `remarks`       text                                                  COMMENT '備考',
   PRIMARY KEY (`primary_id`),
   INDEX         idx_mul01_test_table        (`secondary_id`, `name`),
   UNIQUE INDEX  idx_mail_address_test_table (`mail_address`)
