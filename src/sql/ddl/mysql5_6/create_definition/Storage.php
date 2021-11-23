@@ -8,7 +8,7 @@
  * Flywheel3: the inertia php framework for old php versions
  *
  * @category    Flywheel3
- * @package     strings
+ * @package     builders
  * @author      akira wakaba <wakabadou@gmail.com>
  * @copyright   Copyright (c) @2020  Wakabadou (http://www.wakabadou.net/) / Project ICKX (https://ickx.jp/). All rights reserved.
  * @license     http://opensource.org/licenses/MIT The MIT License.
@@ -121,6 +121,8 @@ class Storage extends AbstractDdlBuilder
      */
     public function build()
     {
+        $this->validBuildable();
+
         switch ($this->type) {
             case self::TYPE_DISK:
                 return 'STORAGE DISK';

@@ -8,7 +8,7 @@
  * Flywheel3: the inertia php framework for old php versions
  *
  * @category    Flywheel3
- * @package     strings
+ * @package     builders
  * @author      akira wakaba <wakabadou@gmail.com>
  * @copyright   Copyright (c) @2020  Wakabadou (http://www.wakabadou.net/) / Project ICKX (https://ickx.jp/). All rights reserved.
  * @license     http://opensource.org/licenses/MIT The MIT License.
@@ -19,6 +19,7 @@
 namespace fw3_for_old\builders\sql\ddl\mysql5_6\storage_engine;
 
 use fw3_for_old\builders\sql\ddl\mysql5_6\abstracts\AbstractDdlBuilder;
+use fw3_for_old\builders\sql\ddl\mysql5_6\exceptions\UnbuildableException;
 use fw3_for_old\strings\converter\Convert;
 
 /**
@@ -144,7 +145,7 @@ class StorageEngine extends AbstractDdlBuilder
         }
 
         if (!isset(self::$MAP[$engine])) {
-            $this->addError('engine', sprintf('未知のストレージエンジン名を与えられました。engine:%s', Convert::toDebugString($engine, 2)));
+            $this->addError('engine', new UnbuildableException(sprintf('未知のストレージエンジン名を与えられました。engine:%s', Convert::toDebugString($engine, 2))));
             return $this;
         }
 
@@ -159,6 +160,8 @@ class StorageEngine extends AbstractDdlBuilder
      */
     public function build()
     {
+        $this->validBuildable();
+
         return sprintf('ENGINE=%s', $this->engine);
     }
 }

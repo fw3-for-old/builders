@@ -8,7 +8,7 @@
  * Flywheel3: the inertia php framework for old php versions
  *
  * @category    Flywheel3
- * @package     strings
+ * @package     builders
  * @author      akira wakaba <wakabadou@gmail.com>
  * @copyright   Copyright (c) @2020  Wakabadou (http://www.wakabadou.net/) / Project ICKX (https://ickx.jp/). All rights reserved.
  * @license     http://opensource.org/licenses/MIT The MIT License.
@@ -725,6 +725,8 @@ class ColumnDefinition extends AbstractDdlBuilder
         if ($this->dataType === null) {
             throw new \Exception('型が指定されていません。');
         }
+
+        $this->validBuildable();
 
         $comment    = $this->comment;
         if ($comment !== null) {

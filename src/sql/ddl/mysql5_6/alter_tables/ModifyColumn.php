@@ -8,7 +8,7 @@
  * Flywheel3: the inertia php framework for old php versions
  *
  * @category    Flywheel3
- * @package     strings
+ * @package     builders
  * @author      akira wakaba <wakabadou@gmail.com>
  * @copyright   Copyright (c) @2020  Wakabadou (http://www.wakabadou.net/) / Project ICKX (https://ickx.jp/). All rights reserved.
  * @license     http://opensource.org/licenses/MIT The MIT License.
@@ -724,6 +724,8 @@ class ModifyColumn extends AbstractDdlBuilder
      */
     public function getState()
     {
+        $this->validBuildable();
+
         return array(
             'table_name'    => sprintf('`%s`', $this->table->getName()),
             'column'        => $this->column->build(),

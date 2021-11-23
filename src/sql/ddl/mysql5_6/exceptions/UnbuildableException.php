@@ -16,23 +16,11 @@
  * @varsion     1.0.0
  */
 
-namespace fw3_for_old\builders\sql\ddl\mysql5_6\data_types\numeric_types;
-
-use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\numeric_types\abstracts\AbstractIntType;
+namespace fw3_for_old\builders\sql\ddl\mysql5_6\exceptions;
 
 /**
- * データ型：mediumint型
- *
- * 符号付き：-8388608 から 8388607
- * 符号付き：0 から 16777215
+ * ビルド不能例外
  */
-class MediumintType extends AbstractIntType
+class UnbuildableException extends \Exception
 {
-    //==============================================
-    // consts
-    //==============================================
-    /**
-     * @var string  型名
-     */
-    const TYPE  = 'mediumint';
 }

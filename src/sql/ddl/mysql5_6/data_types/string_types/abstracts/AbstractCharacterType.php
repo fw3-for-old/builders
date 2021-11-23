@@ -8,7 +8,7 @@
  * Flywheel3: the inertia php framework for old php versions
  *
  * @category    Flywheel3
- * @package     strings
+ * @package     builders
  * @author      akira wakaba <wakabadou@gmail.com>
  * @copyright   Copyright (c) @2020  Wakabadou (http://www.wakabadou.net/) / Project ICKX (https://ickx.jp/). All rights reserved.
  * @license     http://opensource.org/licenses/MIT The MIT License.
@@ -20,6 +20,7 @@ namespace fw3_for_old\builders\sql\ddl\mysql5_6\data_types\string_types\abstract
 
 use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\abstracts\AbstractDataType;
 use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\abstracts\Lengthable;
+use fw3_for_old\builders\sql\ddl\mysql5_6\exceptions\UnbuildableException;
 use fw3_for_old\strings\converter\Convert;
 
 /**
@@ -84,17 +85,17 @@ abstract class AbstractCharacterType extends AbstractDataType implements Lengtha
 
         if ($length !== null) {
             if (false === filter_var($length, \FILTER_VALIDATE_INT)) {
-                $this->addError(static::TYPE, sprintf('文字列長には数値のみを指定してください。length:%s', Convert::toDebugString($length, 2)));
+                $this->addError(static::TYPE, new UnbuildableException(sprintf('文字列長には数値のみを指定してください。length:%s', Convert::toDebugString($length, 2))));
                 return $this;
             }
 
             if ($length < self::MIN_LENGTH) {
-                $this->addError(static::TYPE, sprintf('文字列長は%d以上を指定してください。length:%s', self::MIN_LENGTH, Convert::toDebugString($length, 2)));
+                $this->addError(static::TYPE, new UnbuildableException(sprintf('文字列長は%d以上を指定してください。length:%s', self::MIN_LENGTH, Convert::toDebugString($length, 2))));
                 return $this;
             }
 
             if ($length > static::MAX_LENGTH) {
-                $this->addError(static::TYPE, sprintf('文字列長は%d以下を指定してください。length:%s', static::MAX_LENGTH, Convert::toDebugString($length, 2)));
+                $this->addError(static::TYPE, new UnbuildableException(sprintf('文字列長は%d以下を指定してください。length:%s', static::MAX_LENGTH, Convert::toDebugString($length, 2))));
                 return $this;
             }
         }
@@ -108,6 +109,8 @@ abstract class AbstractCharacterType extends AbstractDataType implements Lengtha
      */
     public function build()
     {
+        $this->validBuildable();
+
         return $this->length !== null ? sprintf('%s(%s)', static::TYPE, $this->length) : static::TYPE;
     }
 }

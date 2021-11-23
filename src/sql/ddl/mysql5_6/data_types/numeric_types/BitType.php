@@ -8,7 +8,7 @@
  * Flywheel3: the inertia php framework for old php versions
  *
  * @category    Flywheel3
- * @package     strings
+ * @package     builders
  * @author      akira wakaba <wakabadou@gmail.com>
  * @copyright   Copyright (c) @2020  Wakabadou (http://www.wakabadou.net/) / Project ICKX (https://ickx.jp/). All rights reserved.
  * @license     http://opensource.org/licenses/MIT The MIT License.
@@ -20,6 +20,7 @@ namespace fw3_for_old\builders\sql\ddl\mysql5_6\data_types\numeric_types;
 
 use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\abstracts\AbstractDataType;
 use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\abstracts\Lengthable;
+use fw3_for_old\builders\sql\ddl\mysql5_6\exceptions\UnbuildableException;
 use fw3_for_old\strings\converter\Convert;
 
 /**
@@ -94,17 +95,17 @@ class BitType extends AbstractDataType implements Lengthable
 
         if ($length !== null) {
             if (false === filter_var($length, \FILTER_VALIDATE_INT)) {
-                $this->addError(static::TYPE, sprintf('ストレージサイズには数値のみを指定してください。length:%s', Convert::toDebugString($length, 2)));
+                $this->addError(static::TYPE, new UnbuildableException(sprintf('ストレージサイズには数値のみを指定してください。length:%s', Convert::toDebugString($length, 2))));
                 return $this;
             }
 
             if ($length < self::STORAGE_SIZE_MIN) {
-                $this->addError(static::TYPE, sprintf('ストレージサイズには%s以上を指定してください。length:%s', self::STORAGE_SIZE_MIN, Convert::toDebugString($length, 2)));
+                $this->addError(static::TYPE, new UnbuildableException(sprintf('ストレージサイズには%s以上を指定してください。length:%s', self::STORAGE_SIZE_MIN, Convert::toDebugString($length, 2))));
                 return $this;
             }
 
             if (self::STORAGE_SIZE_MAX < $length) {
-                $this->addError(static::TYPE, sprintf('ストレージサイズには%s以下を指定してください。length:%s', self::STORAGE_SIZE_MAX, Convert::toDebugString($length, 2)));
+                $this->addError(static::TYPE, new UnbuildableException(sprintf('ストレージサイズには%s以下を指定してください。length:%s', self::STORAGE_SIZE_MAX, Convert::toDebugString($length, 2))));
                 return $this;
             }
         }
@@ -118,6 +119,8 @@ class BitType extends AbstractDataType implements Lengthable
      */
     public function build()
     {
+        $this->validBuildable();
+
         return isset($this->length) ? sprintf('bit(%d)', $this->length) : 'bit';
     }
 }

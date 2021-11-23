@@ -8,7 +8,7 @@
  * Flywheel3: the inertia php framework for old php versions
  *
  * @category    Flywheel3
- * @package     strings
+ * @package     builders
  * @author      akira wakaba <wakabadou@gmail.com>
  * @copyright   Copyright (c) @2020  Wakabadou (http://www.wakabadou.net/) / Project ICKX (https://ickx.jp/). All rights reserved.
  * @license     http://opensource.org/licenses/MIT The MIT License.
@@ -19,6 +19,7 @@
 namespace fw3_for_old\builders\sql\ddl\mysql5_6\globalization\collation;
 
 use fw3_for_old\builders\sql\ddl\mysql5_6\abstracts\AbstractDdlBuilder;
+use fw3_for_old\builders\sql\ddl\mysql5_6\exceptions\UnbuildableException;
 use fw3_for_old\builders\sql\ddl\mysql5_6\globalization\charset\Charset;
 use fw3_for_old\strings\converter\Convert;
 
@@ -255,7 +256,7 @@ class Collation extends AbstractDdlBuilder
         }
 
         if (!isset(self::$LANG_MAP[$lang])) {
-            $this->addError('lang', sprintf('未知の言語名を与えられました。lang:%s', Convert::toDebugString($lang, 2)));
+            $this->addError('lang', new UnbuildableException(sprintf('未知の言語名を与えられました。lang:%s', Convert::toDebugString($lang, 2))));
             return $this;
         }
 
@@ -296,7 +297,7 @@ class Collation extends AbstractDdlBuilder
         }
 
         if (!isset(self::$SUFFIX_MAP[$suffix])) {
-            $this->addError('suffix', sprintf('未知のsuffixを与えられました。suffix:%s', Convert::toDebugString($suffix, 2)));
+            $this->addError('suffix', new UnbuildableException(sprintf('未知のsuffixを与えられました。suffix:%s', Convert::toDebugString($suffix, 2))));
             return $this;
         }
 
@@ -381,6 +382,8 @@ class Collation extends AbstractDdlBuilder
      */
     public function build()
     {
+        $this->validBuildable();
+
         if ($this->charset === Charset::BINARY && $this->suffix !== self::SUFFIX_BINARY) {
             throw new \Exception(sprintf('使用できない文字セットと照合順序接尾辞です。charset:%s, suffix:%s', Convert::toDebugString($this->charset, 2), Convert::toDebugString($this->suffix, 2)));
         }
