@@ -133,6 +133,8 @@ class RenameIndex extends AbstractDdlBuilder
      */
     public function getState()
     {
+        $this->validBuildable();
+
         return array(
             'table_name'        => sprintf('`%s`', $this->table->getName()),
             'index_name'        => sprintf('`%s`', $this->index->name()),

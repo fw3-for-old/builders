@@ -127,6 +127,8 @@ class DropColumn extends AbstractDdlBuilder
      */
     public function getState()
     {
+        $this->validBuildable();
+
         return array(
             'table_name'    => sprintf('`%s`', $this->table->getName()),
             'column_name'   => sprintf('`%s`', $this->column->name()),

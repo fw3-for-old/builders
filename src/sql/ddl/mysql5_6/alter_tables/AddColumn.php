@@ -758,6 +758,8 @@ class AddColumn extends AbstractDdlBuilder
      */
     public function getState()
     {
+        $this->validBuildable();
+
         return array(
             'table_name'        => sprintf('`%s`', $this->table->getName()),
             'column'            => $this->column->build(),

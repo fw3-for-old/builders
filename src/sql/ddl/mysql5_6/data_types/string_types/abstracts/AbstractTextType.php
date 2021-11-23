@@ -88,6 +88,8 @@ abstract class AbstractTextType extends AbstractDataType implements Binaryable
      */
     public function build()
     {
+        $this->validBuildable();
+
         return $this->binary ? sprintf('%s binary', static::TYPE) : static::TYPE;
     }
 }

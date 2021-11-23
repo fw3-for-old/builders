@@ -105,6 +105,8 @@ class Key extends AbstractDdlBuilder
      */
     public function build()
     {
+        $this->validBuildable();
+
         switch ($this->type) {
             case self::TYPE_PRIMARY:
                 return 'PRIMARY KEY';

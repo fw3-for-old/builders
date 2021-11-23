@@ -142,6 +142,8 @@ abstract class AbstractFloatingPointType extends AbstractDataType implements Uns
      */
     public function build()
     {
+        $this->validBuildable();
+
         $format = $this->digit->enabled() ? sprintf('(%d, %d)', $this->digit->getLength(), $this->digit->getDecimals()) : '';
         return sprintf($this->unsigned ? '%s%s unsigned' : '%s%s', static::TYPE, $format);
     }

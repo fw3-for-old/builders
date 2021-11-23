@@ -726,6 +726,8 @@ class ColumnDefinition extends AbstractDdlBuilder
             throw new \Exception('型が指定されていません。');
         }
 
+        $this->validBuildable();
+
         $comment    = $this->comment;
         if ($comment !== null) {
             if (!empty($this->map)) {

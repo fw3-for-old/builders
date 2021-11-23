@@ -19,6 +19,7 @@
 namespace fw3_for_old\builders\sql\ddl\mysql5_6\data_types\numeric_types\sub_types;
 
 use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\abstracts\AbstractDataType;
+use fw3_for_old\builders\sql\ddl\mysql5_6\exceptions\UnbuildableException;
 use fw3_for_old\strings\converter\Convert;
 
 /**
@@ -107,17 +108,17 @@ class FloatingPointDigit extends AbstractDataType
         }
 
         if (false === filter_var($length, \FILTER_VALIDATE_INT)) {
-            $this->addError(static::TYPE, sprintf('桁数には数値のみを指定してください。length:%s', Convert::toDebugString($length, 2)));
+            $this->addError(static::TYPE, new UnbuildableException(sprintf('桁数には数値のみを指定してください。length:%s', Convert::toDebugString($length, 2))));
             return $this;
         }
 
         if ($length < self::MIN_LENGTH) {
-            $this->addError(static::TYPE, sprintf('桁数は%d以上を指定してください。length:%s', self::MIN_LENGTH, Convert::toDebugString($length, 2)));
+            $this->addError(static::TYPE, new UnbuildableException(sprintf('桁数は%d以上を指定してください。length:%s', self::MIN_LENGTH, Convert::toDebugString($length, 2))));
             return $this;
         }
 
         if ($length > self::MAX_LENGTH) {
-            $this->addError(static::TYPE, sprintf('桁数は%d以下を指定してください。length:%s', self::MAX_LENGTH, Convert::toDebugString($length, 2)));
+            $this->addError(static::TYPE, new UnbuildableException(sprintf('桁数は%d以下を指定してください。length:%s', self::MAX_LENGTH, Convert::toDebugString($length, 2))));
             return $this;
         }
 
@@ -126,22 +127,22 @@ class FloatingPointDigit extends AbstractDataType
         }
 
         if (false === filter_var($decimals, \FILTER_VALIDATE_INT)) {
-            $this->addError(static::TYPE, sprintf('小数点以下の桁数には数値のみを指定してください。decimals:%s', Convert::toDebugString($decimals, 2)));
+            $this->addError(static::TYPE, new UnbuildableException(sprintf('小数点以下の桁数には数値のみを指定してください。decimals:%s', Convert::toDebugString($decimals, 2))));
             return $this;
         }
 
         if ($decimals < self::MIN_DECIMALS) {
-            $this->addError(static::TYPE, sprintf('小数点以下の桁数は%d以上を指定してください。decimals:%s', self::MIN_DECIMALS, Convert::toDebugString($decimals, 2)));
+            $this->addError(static::TYPE, new UnbuildableException(sprintf('小数点以下の桁数は%d以上を指定してください。decimals:%s', self::MIN_DECIMALS, Convert::toDebugString($decimals, 2))));
             return $this;
         }
 
         if ($decimals > self::MAX_DECIMALS) {
-            $this->addError(static::TYPE, sprintf('小数点以下の桁数は%d以下を指定してください。decimals:%s', self::MAX_DECIMALS, Convert::toDebugString($decimals, 2)));
+            $this->addError(static::TYPE, new UnbuildableException(sprintf('小数点以下の桁数は%d以下を指定してください。decimals:%s', self::MAX_DECIMALS, Convert::toDebugString($decimals, 2))));
             return $this;
         }
 
         if ($decimals >= $length) {
-            $this->addError(static::TYPE, sprintf('小数点以下の桁数は桁数 - 1に収まるようにしてください。length:%s, decimals:%s', Convert::toDebugString($decimals, 2), Convert::toDebugString($decimals, 2)));
+            $this->addError(static::TYPE, new UnbuildableException(sprintf('小数点以下の桁数は桁数 - 1に収まるようにしてください。length:%s, decimals:%s', Convert::toDebugString($decimals, 2), Convert::toDebugString($decimals, 2))));
             return $this;
         }
 

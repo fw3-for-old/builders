@@ -18,21 +18,23 @@
 
 namespace fw3_for_old\builders\sql\ddl\mysql5_6\abstracts;
 
+use fw3_for_old\builders\sql\ddl\mysql5_6\exceptions\UnbuildableException;
+
 /**
  * 基底DDLビルダ
  */
 abstract class AbstractDdlBuilder
 {
     /**
-     * @var array   エラー
+     * @var UnbuildableException[]  エラー
      */
     protected $errors   = array();
 
     /**
      * エラーを追加します。
      *
-     * @param   string          $name   名前
-     * @param   string|array    $error  エラー内容
+     * @param   string                  $name   名前
+     * @param   UnbuildableException    $error  エラー内容
      * @return  static  このインスタンス
      */
     public function addError($name, $error)
@@ -65,7 +67,7 @@ abstract class AbstractDdlBuilder
     /**
      * エラー内容を返します。
      *
-     * @return  array   エラー内容
+     * @return  UnbuildableException[]  エラー内容
      */
     public function getErrors()
     {
@@ -73,10 +75,26 @@ abstract class AbstractDdlBuilder
     }
 
     /**
+     * エラーメッセージを返します。
+     *
+     * @return  array   エラー内容
+     */
+    public function getErrorsMessage()
+    {
+        $error_messages = [];
+        foreach ($this->errors as $name => $errors) {
+            foreach ($errors as $error) {
+                $error_messages[$name][]    = $error->getMessage();
+            }
+        }
+        return $error_messages;
+    }
+
+    /**
      * 名前に紐づくエラー内容を返します。
      *
-     * @param   string  $name   名前
-     * @return  array   名前に紐づくエラー内容
+     * @param   string                      $name   名前
+     * @return  UnbuildableException|null   名前に紐づくエラー内容
      */
     public function getError($name)
     {
@@ -84,21 +102,67 @@ abstract class AbstractDdlBuilder
     }
 
     /**
+     * 名前に紐づくエラーメッセージリストを返します。
+     *
+     * @param   string  $name   名前
+     * @return  array   名前に紐づくエラー内容
+     */
+    public function getErrorMessage($name)
+    {
+        if (!isset($this->errors[$name])) {
+            return array();
+        }
+
+        $errors = array();
+        foreach ($this->errors[$name] as $error) {
+            $errors[]   = $error->getMessage();
+        }
+
+        return $errors;
+    }
+
+    /**
      * エラー内容を取り込みます。
      *
-     * @param   static|array    $canHaveError   エラー
-     * @param   null|string     $force_name     強制したいエラー名
+     * @param   static      $canHaveError   エラー
+     * @param   null|string $force_name     強制したいエラー名
      * @return  static  このインスタンス
      */
     public function mergeErrors($canHaveError, $force_name = null)
     {
-        foreach (is_object($canHaveError) && is_subclass_of($canHaveError, __CLASS__) ? $canHaveError->getErrors() : $canHaveError as $name => $messages) {
-            foreach ($messages as $message) {
-                $this->errors[$force_name === null ? $name : $force_name][]  = $message;
+        foreach ($canHaveError->getErrors() as $name => $errors) {
+            foreach ($errors as $error) {
+                $this->errors[$force_name === null ? $name : $force_name][]  = $error;
             }
         }
 
         return $this;
+    }
+
+    /**
+     * build可能な状態か検証します。
+     *
+     * @throws  UnbuildableException
+     */
+    public function validBuildable()
+    {
+        if ($this->hasErrors()) {
+            $message_stacks = ['ビルド不能な状態でビルドが実行されました。'];
+            foreach ($this->errors as $name => $errors) {
+                foreach ($errors as $error) {
+                    /** @var UnbuildableException $error */
+                    $message_stacks[]   = '------------------------------------------------';
+                    $message_stacks[]   = sprintf('%s:%s', $name, $error->getMessage());
+                    $message_stacks[]   = 'Stack trace:';
+                    $message_stacks[]   = $error->getTraceAsString();
+                }
+            }
+
+            $message_stacks[]   = '------------------------------------------------';
+            $message_stacks[]   = '';
+
+            throw new UnbuildableException(implode("\n", $message_stacks));
+        }
     }
 
     /**

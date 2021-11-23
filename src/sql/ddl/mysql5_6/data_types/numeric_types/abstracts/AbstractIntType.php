@@ -88,6 +88,8 @@ abstract class AbstractIntType extends AbstractDataType implements Unsignedable
      */
     public function build()
     {
+        $this->validBuildable();
+
         return $this->unsigned ? sprintf('%s unsigned', static::TYPE) : static::TYPE;
     }
 }

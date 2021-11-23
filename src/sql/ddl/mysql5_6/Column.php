@@ -740,6 +740,8 @@ class Column extends AbstractDdlBuilder
      */
     public function getState()
     {
+        $this->validBuildable();
+
         $column_definition  = $this->columnDefinition->getState();
 
         return array(

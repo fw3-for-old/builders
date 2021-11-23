@@ -19,6 +19,7 @@
 namespace fw3_for_old\builders\sql\ddl\mysql5_6;
 
 use fw3_for_old\builders\sql\ddl\mysql5_6\abstracts\AbstractDdlBuilder;
+use fw3_for_old\builders\sql\ddl\mysql5_6\exceptions\UnbuildableException;
 use fw3_for_old\builders\sql\ddl\mysql5_6\globalization\charset\Charset;
 use fw3_for_old\builders\sql\ddl\mysql5_6\globalization\collation\Collation;
 use fw3_for_old\builders\sql\ddl\mysql5_6\storage_engine\StorageEngine;
@@ -307,7 +308,7 @@ class Table extends AbstractDdlBuilder
     public function comment($comment)
     {
         if (($length = mb_strlen($comment)) > 1024) {
-            $this->addError('comment', sprintf('最大文字列長以上のコメントを指定されました。length:%d', Convert::toDebugString($length, 2)));
+            $this->addError('comment', new UnbuildableException(sprintf('最大文字列長以上のコメントを指定されました。length:%d', Convert::toDebugString($length, 2))));
             return $this;
         }
 
@@ -463,6 +464,8 @@ class Table extends AbstractDdlBuilder
      */
     public function build()
     {
+        $this->validBuildable();
+
         //----------------------------------------------
         // base
         //----------------------------------------------

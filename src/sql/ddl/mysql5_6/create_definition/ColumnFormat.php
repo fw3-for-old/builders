@@ -121,6 +121,8 @@ class ColumnFormat extends AbstractDdlBuilder
      */
     public function build()
     {
+        $this->validBuildable();
+
         switch ($this->type) {
             case self::TYPE_FIXED:
                 return 'COLUMN_FORMAT FIXED';

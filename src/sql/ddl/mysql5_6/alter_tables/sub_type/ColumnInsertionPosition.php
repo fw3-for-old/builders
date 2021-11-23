@@ -21,6 +21,7 @@ namespace fw3_for_old\builders\sql\ddl\mysql5_6\alter_tables\sub_type;
 use fw3_for_old\builders\sql\ddl\mysql5_6\Column;
 use fw3_for_old\builders\sql\ddl\mysql5_6\abstracts\AbstractDdlBuilder;
 use fw3_for_old\strings\converter\Convert;
+use fw3_for_old\builders\sql\ddl\mysql5_6\exceptions\UnbuildableException;
 
 /**
  * カラム挿入位置
@@ -93,7 +94,7 @@ class ColumnInsertionPosition extends AbstractDdlBuilder
         }
 
         if ($position !== null && !isset(self::$POSITION_MAP[$position])) {
-            $this->addError('column_insertion_position', sprintf('未知の挿入位置を指定されました。position:%s', Convert::toDebugString($position, 2)));
+            $this->addError('column_insertion_position', new UnbuildableException(sprintf('未知の挿入位置を指定されました。position:%s', Convert::toDebugString($position, 2))));
             return $this;
         }
 
@@ -158,9 +159,7 @@ class ColumnInsertionPosition extends AbstractDdlBuilder
      */
     public function build()
     {
-        if ($this->hasErrors()) {
-            throw new UnableBuildException();
-        }
+        $this->validBuildable();
 
         if ($this->position === null || $this->position === self::POSITION_AFTER) {
             if ($this->column === null) {

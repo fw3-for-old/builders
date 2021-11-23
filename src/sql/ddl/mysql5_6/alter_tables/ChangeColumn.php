@@ -731,6 +731,8 @@ class ChangeColumn extends AbstractDdlBuilder
      */
     public function getState()
     {
+        $this->validBuildable();
+
         return array(
             'table_name'    => sprintf('`%s`', $this->table->getName()),
             'old_column'    => sprintf('`%s`', $this->column->name()),

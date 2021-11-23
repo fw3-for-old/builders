@@ -53,6 +53,8 @@ abstract class AbstractDatetimeType extends AbstractDataType
      */
     public function build()
     {
+        $this->validBuildable();
+
         return static::TYPE;
     }
 }

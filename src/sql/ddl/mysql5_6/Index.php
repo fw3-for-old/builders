@@ -262,6 +262,8 @@ class Index extends AbstractDdlBuilder
             throw new \Exception('カラムが指定されていません。');
         }
 
+        $this->validBuildable();
+
         $is_multi   = $this->isMulti();
 
         $index_col_names    = array();

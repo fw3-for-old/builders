@@ -121,6 +121,8 @@ class Storage extends AbstractDdlBuilder
      */
     public function build()
     {
+        $this->validBuildable();
+
         switch ($this->type) {
             case self::TYPE_DISK:
                 return 'STORAGE DISK';

@@ -142,6 +142,8 @@ abstract class AbstractFixedPointType extends AbstractDataType implements Unsign
      */
     public function build()
     {
+        $this->validBuildable();
+
         $format = '';
         if ($this->digit->enabled()) {
             $format = $this->getDecimals() === null ? sprintf('(%d)', $this->digit->getLength()) : sprintf('(%d, %d)', $this->digit->getLength(), $this->digit->getDecimals());

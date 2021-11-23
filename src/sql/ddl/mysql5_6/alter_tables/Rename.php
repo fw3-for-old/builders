@@ -119,6 +119,8 @@ class Rename extends AbstractDdlBuilder
      */
     public function build()
     {
+        $this->validBuildable();
+
         //----------------------------------------------
         // build
         //----------------------------------------------
