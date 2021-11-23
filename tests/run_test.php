@@ -8,7 +8,7 @@
  * Flywheel3: the inertia php framework for old php versions
  *
  * @category    test
- * @package     strings
+ * @package     builders
  * @author      wakaba <wakabadou@gmail.com>
  * @copyright   2020 - Wakabadou (http://www.wakabadou.net/) / Project ICKX (https://ickx.jp/)
  * @license     http://opensource.org/licenses/MIT The MIT License MIT
