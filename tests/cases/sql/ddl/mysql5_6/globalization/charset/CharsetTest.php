@@ -43,8 +43,8 @@ class CharsetTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($charset->hasErrors());
         $this->assertFalse($charset->hasError('charset'));
-        $this->assertSame(array(), $charset->getErrors());
-        $this->assertSame(array(), $charset->getError('charset'));
+        $this->assertSame(array(), $charset->getErrorsMessage());
+        $this->assertSame(array(), $charset->getErrorMessage('charset'));
 
         $expected   = Charset::DEFAULT_CHARSET;
         $actual     = $charset->build();
@@ -62,8 +62,8 @@ class CharsetTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($charset->hasErrors());
         $this->assertFalse($charset->hasError('charset'));
-        $this->assertSame(array(), $charset->getErrors());
-        $this->assertSame(array(), $charset->getError('charset'));
+        $this->assertSame(array(), $charset->getErrorsMessage());
+        $this->assertSame(array(), $charset->getErrorMessage('charset'));
 
         $expected   = Charset::DEFAULT_CHARSET;
         $actual     = $charset->build();
@@ -81,8 +81,8 @@ class CharsetTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($charset->hasErrors());
         $this->assertFalse($charset->hasError('charset'));
-        $this->assertSame(array(), $charset->getErrors());
-        $this->assertSame(array(), $charset->getError('charset'));
+        $this->assertSame(array(), $charset->getErrorsMessage());
+        $this->assertSame(array(), $charset->getErrorMessage('charset'));
 
         $expected   = Charset::CP932;
         $actual     = $charset->build();
@@ -103,8 +103,8 @@ class CharsetTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($charset->hasErrors());
         $this->assertFalse($charset->hasError('charset'));
-        $this->assertSame(array(), $charset->getErrors());
-        $this->assertSame(array(), $charset->getError('charset'));
+        $this->assertSame(array(), $charset->getErrorsMessage());
+        $this->assertSame(array(), $charset->getErrorMessage('charset'));
 
         $expected   = Charset::CP932;
         $actual     = $charset->build();
@@ -120,8 +120,8 @@ class CharsetTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($charset->hasErrors());
         $this->assertTrue($charset->hasError('charset'));
-        $this->assertSame(array('charset' => array($message)), $charset->getErrors());
-        $this->assertSame(array($message), $charset->getError('charset'));
+        $this->assertSame(array('charset' => array($message)), $charset->getErrorsMessage());
+        $this->assertSame(array($message), $charset->getErrorMessage('charset'));
 
         //----------------------------------------------
         $charset        = Charset::factory();
@@ -133,7 +133,7 @@ class CharsetTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($charset->hasErrors());
         $this->assertTrue($charset->hasError('charset'));
-        $this->assertSame(array('charset' => array($message)), $charset->getErrors());
-        $this->assertSame(array($message), $charset->getError('charset'));
+        $this->assertSame(array('charset' => array($message)), $charset->getErrorsMessage());
+        $this->assertSame(array($message), $charset->getErrorMessage('charset'));
     }
 }

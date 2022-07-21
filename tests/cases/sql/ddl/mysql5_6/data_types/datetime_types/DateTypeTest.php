@@ -45,8 +45,8 @@ class DateTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
     }
 
     public function testBuild()
@@ -59,7 +59,7 @@ class DateTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
     }
 }

@@ -16,29 +16,29 @@
  * @varsion     1.0.0
  */
 
-namespace fw3_for_old\tests\builders\sql\ddl\mysql5_6\data_types\datetime_types;
+namespace fw3_for_old\tests\builders\sql\ddl\mysql5_6\data_types\json_data_types;
 
-use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\datetime_types\YearType;
+use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\json_data_types\JsonType;
 use fw3_for_old\ez_test\test_unit\AbstractTest;
 
 /**
- * year型
+ * json型
  */
-class YearTypeTest extends AbstractTest
+class JsonTypeTest extends AbstractTest
 {
-    const CLASS_PATH    = "\\fw3_for_old\\builders\\sql\\ddl\\mysql5_6\\data_types\\datetime_types\\YearType";
-    const ERROR_NAME    = YearType::TYPE;
+    const CLASS_PATH    = "\\fw3_for_old\\builders\\sql\\ddl\\mysql5_6\\data_types\\json_data_types\\JsonType";
+    const ERROR_NAME    = JsonType::TYPE;
     protected static $NONE_ERROR    = array();
 
     public function testFactory()
     {
         //----------------------------------------------
-        $expected   = 'year';
-        $actual     = YearType::TYPE;
+        $expected   = 'json';
+        $actual     = JsonType::TYPE;
         $this->assertSame($expected, $actual);
 
         //----------------------------------------------
-        $dataType   = YearType::factory();
+        $dataType   = JsonType::factory();
 
         $expected   = self::CLASS_PATH;
         $actual     = $dataType;
@@ -52,9 +52,9 @@ class YearTypeTest extends AbstractTest
     public function testBuild()
     {
         //----------------------------------------------
-        $dataType   = YearType::factory();
+        $dataType   = JsonType::factory();
 
-        $expected   = 'year';
+        $expected   = 'json';
         $actual     = $dataType->build();
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
