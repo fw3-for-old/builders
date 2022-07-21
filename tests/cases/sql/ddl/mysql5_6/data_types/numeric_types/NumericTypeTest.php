@@ -46,8 +46,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         $expected   = null;
         $actual     = $dataType->getLength();
@@ -68,8 +68,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $unsigned   = true;
@@ -81,8 +81,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $unsigned   = true;
@@ -94,8 +94,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         $expected   = $unsigned;
         $actual     = $dataType->unsigned();
@@ -111,8 +111,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         $expected   = $unsigned;
         $actual     = $dataType->unsigned();
@@ -128,8 +128,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         $expected   = false;
         $actual     = $dataType->unsigned();
@@ -148,8 +148,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         $expected   = $length;
         $actual     = $dataType->getLength();
@@ -182,8 +182,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         $expected   = $length;
         $actual     = $dataType->getLength();
@@ -204,8 +204,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         $expected   = $length;
         $actual     = $dataType->getLength();
@@ -228,8 +228,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($dataType->hasErrors());
         $this->assertTrue($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(array(self::ERROR_NAME => $error_message), $dataType->getErrors());
-        $this->assertSame($error_message, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(array(self::ERROR_NAME => $error_message), $dataType->getErrorsMessage());
+        $this->assertSame($error_message, $dataType->getErrorMessage(self::ERROR_NAME));
 
         $expected   = null;
         $actual     = $dataType->getLength();
@@ -252,8 +252,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($dataType->hasErrors());
         $this->assertTrue($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(array(self::ERROR_NAME => $error_message), $dataType->getErrors());
-        $this->assertSame($error_message, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(array(self::ERROR_NAME => $error_message), $dataType->getErrorsMessage());
+        $this->assertSame($error_message, $dataType->getErrorMessage(self::ERROR_NAME));
 
         $expected   = null;
         $actual     = $dataType->getLength();
@@ -276,8 +276,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($dataType->hasErrors());
         $this->assertTrue($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(array(self::ERROR_NAME => $error_message), $dataType->getErrors());
-        $this->assertSame($error_message, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(array(self::ERROR_NAME => $error_message), $dataType->getErrorsMessage());
+        $this->assertSame($error_message, $dataType->getErrorMessage(self::ERROR_NAME));
 
         $expected   = null;
         $actual     = $dataType->getLength();
@@ -300,8 +300,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($dataType->hasErrors());
         $this->assertTrue($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(array(self::ERROR_NAME => $error_message), $dataType->getErrors());
-        $this->assertSame($error_message, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(array(self::ERROR_NAME => $error_message), $dataType->getErrorsMessage());
+        $this->assertSame($error_message, $dataType->getErrorMessage(self::ERROR_NAME));
 
         $expected   = null;
         $actual     = $dataType->getLength();
@@ -324,8 +324,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($dataType->hasErrors());
         $this->assertTrue($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(array(self::ERROR_NAME => $error_message), $dataType->getErrors());
-        $this->assertSame($error_message, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(array(self::ERROR_NAME => $error_message), $dataType->getErrorsMessage());
+        $this->assertSame($error_message, $dataType->getErrorMessage(self::ERROR_NAME));
 
         $expected   = null;
         $actual     = $dataType->getLength();
@@ -350,8 +350,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $dataType   = NumericType::factory($length);
@@ -361,8 +361,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $dataType   = NumericType::factory($length, $decimals);
@@ -372,8 +372,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $dataType   = NumericType::factory($length, $decimals, $unsigned);
@@ -383,8 +383,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $dataType   = NumericType::factory()->unsigned();
@@ -394,8 +394,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $dataType   = NumericType::factory()->unsigned()->signed();
@@ -405,8 +405,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $dataType   = NumericType::factory()->setDigit($length, $decimals);
@@ -416,8 +416,8 @@ class NumericTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $dataType   = NumericType::factory()->setDigit($length, $decimals)->unsigned();
@@ -427,7 +427,7 @@ class NumericTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
     }
 }

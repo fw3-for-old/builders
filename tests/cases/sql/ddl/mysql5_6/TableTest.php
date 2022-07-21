@@ -248,8 +248,8 @@ class TableTest extends AbstractTest
 
         $this->assertFalse($table->hasErrors());
         $this->assertFalse($table->hasError('engine'));
-        $this->assertSame(array(), $table->getErrors());
-        $this->assertSame(array(), $table->getError('engine'));
+        $this->assertSame(array(), $table->getErrorsMessage());
+        $this->assertSame(array(), $table->getErrorMessage('engine'));
 
         //----------------------------------------------
         $table  = Table::factory($name);
@@ -264,8 +264,8 @@ class TableTest extends AbstractTest
 
         $this->assertTrue($table->hasErrors());
         $this->assertTrue($table->hasError('engine'));
-        $this->assertSame(array('engine' => array($message)), $table->getErrors());
-        $this->assertSame(array($message), $table->getError('engine'));
+        $this->assertSame(array('engine' => array($message)), $table->getErrorsMessage());
+        $this->assertSame(array($message), $table->getErrorMessage('engine'));
     }
 
     public function testDefaultCharset()
@@ -338,8 +338,8 @@ class TableTest extends AbstractTest
 
         $this->assertFalse($table->hasErrors());
         $this->assertFalse($table->hasError('charset'));
-        $this->assertSame(array(), $table->getErrors());
-        $this->assertSame(array(), $table->getError('charset'));
+        $this->assertSame(array(), $table->getErrorsMessage());
+        $this->assertSame(array(), $table->getErrorMessage('charset'));
 
         $expected   = sprintf('CREATE TABLE `%s` DEFAULT CHARACTER SET=%s;', $name, $charset);
         $actual     = $table->build();
@@ -358,8 +358,8 @@ class TableTest extends AbstractTest
 
         $this->assertTrue($table->hasErrors());
         $this->assertTrue($table->hasError('charset'));
-        $this->assertSame(array('charset' => array($message)), $table->getErrors());
-        $this->assertSame(array($message), $table->getError('charset'));
+        $this->assertSame(array('charset' => array($message)), $table->getErrorsMessage());
+        $this->assertSame(array($message), $table->getErrorMessage('charset'));
     }
 
     public function testCollation()
@@ -375,8 +375,8 @@ class TableTest extends AbstractTest
 
         $this->assertFalse($table->hasErrors());
         $this->assertFalse($table->hasError('collation'));
-        $this->assertSame(array(), $table->getErrors());
-        $this->assertSame(array(), $table->getError('collation'));
+        $this->assertSame(array(), $table->getErrorsMessage());
+        $this->assertSame(array(), $table->getErrorMessage('collation'));
 
         $expected   = sprintf('CREATE TABLE `%s` DEFAULT COLLATE=%s_%s_%s;', $name, Charset::CP932, Collation::LANG_JAPANESE, Collation::SUFFIX_CASE_SENSITIVE);
         $actual     = $table->build();
@@ -391,8 +391,8 @@ class TableTest extends AbstractTest
 
         $this->assertFalse($table->hasErrors());
         $this->assertFalse($table->hasError('collation'));
-        $this->assertSame(array(), $table->getErrors());
-        $this->assertSame(array(), $table->getError('collation'));
+        $this->assertSame(array(), $table->getErrorsMessage());
+        $this->assertSame(array(), $table->getErrorMessage('collation'));
 
         $expected   = sprintf('CREATE TABLE `%s` DEFAULT COLLATE=%s_%s_%s;', $name, Charset::CP932, Collation::DEFAULT_LANG, Collation::SUFFIX_CASE_INSENSITIVE);
         $actual     = $table->build();

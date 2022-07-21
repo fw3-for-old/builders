@@ -24,6 +24,7 @@ use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\datetime_types\DatetimeType
 use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\datetime_types\TimeType;
 use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\datetime_types\TimestampType;
 use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\datetime_types\YearType;
+use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\json_data_types\JsonType;
 use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\numeric_types\BigintType;
 use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\numeric_types\BitType;
 use fw3_for_old\builders\sql\ddl\mysql5_6\data_types\numeric_types\DecimalType;
@@ -163,6 +164,14 @@ abstract class DataType
     const TYPE_VARCHAR      = VarcharType::TYPE;
 
     //----------------------------------------------
+    // JSONデータ型
+    //----------------------------------------------
+    /**
+     * @var string  型：JSONデータ型：json
+     */
+    const TYPE_JSON = JsonType::TYPE;
+
+    //----------------------------------------------
     // マップ
     //----------------------------------------------
     /**
@@ -193,6 +202,8 @@ abstract class DataType
         MediumtextType::TYPE    => "\\fw3_for_old\\builders\\sql\\ddl\\mysql5_6\\data_types\\string_types\\MediumtextType",
         TextType::TYPE          => "\\fw3_for_old\\builders\\sql\\ddl\\mysql5_6\\data_types\\string_types\\TextType",
         VarcharType::TYPE       => "\\fw3_for_old\\builders\\sql\\ddl\\mysql5_6\\data_types\\string_types\\VarcharType",
+        // JSONデータ型
+        JsonType::TYPE          => "\\fw3_for_old\\builders\\sql\\ddl\\mysql5_6\\data_types\\json_data_types\\JsonType",
     );
 
     //==============================================
@@ -449,5 +460,15 @@ abstract class DataType
     public static function longtext($binary = false)
     {
         return static::factory(self::TYPE_LONGTEXT, array($binary));
+    }
+
+    /**
+     * json型を返します。
+     *
+     * @return  JsonType    json型
+     */
+    public static function json()
+    {
+        return static::factory(self::TYPE_JSON);
     }
 }

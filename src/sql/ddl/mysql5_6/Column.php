@@ -452,6 +452,17 @@ class Column extends AbstractDdlBuilder
         return $this;
     }
 
+    /**
+     * このカラムをjson型とします。
+     *
+     * @return  static  このインスタンス
+     */
+    public function json()
+    {
+        $this->columnDefinition->json();
+        return $this;
+    }
+
     //----------------------------------------------
     // 属性
     //----------------------------------------------

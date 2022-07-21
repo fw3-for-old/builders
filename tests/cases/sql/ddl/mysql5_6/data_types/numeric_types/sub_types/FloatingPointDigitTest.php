@@ -46,8 +46,8 @@ class FloatingPointDigitTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($decimalPointDigit->hasErrors());
         $this->assertFalse($decimalPointDigit->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getErrorMessage(self::ERROR_NAME));
 
         $expected   = null;
         $actual     = $decimalPointDigit->getLength();
@@ -71,8 +71,8 @@ class FloatingPointDigitTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($decimalPointDigit->hasErrors());
         $this->assertFalse($decimalPointDigit->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getErrorMessage(self::ERROR_NAME));
 
         $expected   = $length;
         $actual     = $decimalPointDigit->getLength();
@@ -95,8 +95,8 @@ class FloatingPointDigitTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($decimalPointDigit->hasErrors());
         $this->assertFalse($decimalPointDigit->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getErrorMessage(self::ERROR_NAME));
 
         $expected   = null;
         $actual     = $decimalPointDigit->getLength();
@@ -123,8 +123,8 @@ class FloatingPointDigitTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($decimalPointDigit->hasErrors());
         $this->assertFalse($decimalPointDigit->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $decimalPointDigit->getErrorMessage(self::ERROR_NAME));
 
         $expected   = $length;
         $actual     = $decimalPointDigit->getLength();
@@ -150,8 +150,8 @@ class FloatingPointDigitTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($decimalPointDigit->hasErrors());
         $this->assertTrue($decimalPointDigit->hasError(self::ERROR_NAME));
-        $this->assertSame(array(self::ERROR_NAME => $error_message), $decimalPointDigit->getErrors());
-        $this->assertSame($error_message, $decimalPointDigit->getError(self::ERROR_NAME));
+        $this->assertSame(array(self::ERROR_NAME => $error_message), $decimalPointDigit->getErrorsMessage());
+        $this->assertSame($error_message, $decimalPointDigit->getErrorMessage(self::ERROR_NAME));
 
         $expected   = null;
         $actual     = $decimalPointDigit->getLength();
@@ -177,8 +177,8 @@ class FloatingPointDigitTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($decimalPointDigit->hasErrors());
         $this->assertTrue($decimalPointDigit->hasError(self::ERROR_NAME));
-        $this->assertSame(array(self::ERROR_NAME => $error_message), $decimalPointDigit->getErrors());
-        $this->assertSame($error_message, $decimalPointDigit->getError(self::ERROR_NAME));
+        $this->assertSame(array(self::ERROR_NAME => $error_message), $decimalPointDigit->getErrorsMessage());
+        $this->assertSame($error_message, $decimalPointDigit->getErrorMessage(self::ERROR_NAME));
 
         $expected   = null;
         $actual     = $decimalPointDigit->getLength();
@@ -204,8 +204,8 @@ class FloatingPointDigitTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($decimalPointDigit->hasErrors());
         $this->assertTrue($decimalPointDigit->hasError(self::ERROR_NAME));
-        $this->assertSame(array(self::ERROR_NAME => $error_message), $decimalPointDigit->getErrors());
-        $this->assertSame($error_message, $decimalPointDigit->getError(self::ERROR_NAME));
+        $this->assertSame(array(self::ERROR_NAME => $error_message), $decimalPointDigit->getErrorsMessage());
+        $this->assertSame($error_message, $decimalPointDigit->getErrorMessage(self::ERROR_NAME));
 
         $expected   = null;
         $actual     = $decimalPointDigit->getLength();
@@ -231,8 +231,8 @@ class FloatingPointDigitTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($decimalPointDigit->hasErrors());
         $this->assertTrue($decimalPointDigit->hasError(self::ERROR_NAME));
-        $this->assertSame(array(self::ERROR_NAME => $error_message), $decimalPointDigit->getErrors());
-        $this->assertSame($error_message, $decimalPointDigit->getError(self::ERROR_NAME));
+        $this->assertSame(array(self::ERROR_NAME => $error_message), $decimalPointDigit->getErrorsMessage());
+        $this->assertSame($error_message, $decimalPointDigit->getErrorMessage(self::ERROR_NAME));
 
         $expected   = null;
         $actual     = $decimalPointDigit->getLength();
@@ -258,8 +258,8 @@ class FloatingPointDigitTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($decimalPointDigit->hasErrors());
         $this->assertTrue($decimalPointDigit->hasError(self::ERROR_NAME));
-        $this->assertSame(array(self::ERROR_NAME => $error_message), $decimalPointDigit->getErrors());
-        $this->assertSame($error_message, $decimalPointDigit->getError(self::ERROR_NAME));
+        $this->assertSame(array(self::ERROR_NAME => $error_message), $decimalPointDigit->getErrorsMessage());
+        $this->assertSame($error_message, $decimalPointDigit->getErrorMessage(self::ERROR_NAME));
 
         $expected   = null;
         $actual     = $decimalPointDigit->getLength();

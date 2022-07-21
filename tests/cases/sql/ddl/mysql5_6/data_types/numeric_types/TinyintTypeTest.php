@@ -45,8 +45,8 @@ class TinyintTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
     }
 
     public function testUnsigned()
@@ -59,8 +59,8 @@ class TinyintTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $unsigned   = true;
@@ -72,8 +72,8 @@ class TinyintTypeTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
     }
 
     public function testBuild()
@@ -86,8 +86,8 @@ class TinyintTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $unsigned   = true;
@@ -99,8 +99,8 @@ class TinyintTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $dataType   = TinyintType::factory()->signed();
@@ -110,8 +110,8 @@ class TinyintTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $dataType   = TinyintType::factory()->unsigned();
@@ -121,8 +121,8 @@ class TinyintTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
 
         //----------------------------------------------
         $unsigned   = true;
@@ -134,7 +134,7 @@ class TinyintTypeTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($dataType->hasErrors());
         $this->assertFalse($dataType->hasError(self::ERROR_NAME));
-        $this->assertSame(self::$NONE_ERROR, $dataType->getErrors());
-        $this->assertSame(self::$NONE_ERROR, $dataType->getError(self::ERROR_NAME));
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorsMessage());
+        $this->assertSame(self::$NONE_ERROR, $dataType->getErrorMessage(self::ERROR_NAME));
     }
 }

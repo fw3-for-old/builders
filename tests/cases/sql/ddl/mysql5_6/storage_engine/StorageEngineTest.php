@@ -43,8 +43,8 @@ class StorageEngineTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($storageEngine->hasErrors());
         $this->assertFalse($storageEngine->hasError('engine'));
-        $this->assertSame(array(), $storageEngine->getErrors());
-        $this->assertSame(array(), $storageEngine->getError('engine'));
+        $this->assertSame(array(), $storageEngine->getErrorsMessage());
+        $this->assertSame(array(), $storageEngine->getErrorMessage('engine'));
 
         $expected   = sprintf('ENGINE=%s', StorageEngine::DEFAULT_ENGINE);
         $actual     = $storageEngine->build();
@@ -62,8 +62,8 @@ class StorageEngineTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($storageEngine->hasErrors());
         $this->assertFalse($storageEngine->hasError('engine'));
-        $this->assertSame(array(), $storageEngine->getErrors());
-        $this->assertSame(array(), $storageEngine->getError('engine'));
+        $this->assertSame(array(), $storageEngine->getErrorsMessage());
+        $this->assertSame(array(), $storageEngine->getErrorMessage('engine'));
 
         $expected   = sprintf('ENGINE=%s', StorageEngine::DEFAULT_ENGINE);
         $actual     = $storageEngine->build();
@@ -83,8 +83,8 @@ class StorageEngineTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($storageEngine->hasErrors());
         $this->assertFalse($storageEngine->hasError('engine'));
-        $this->assertSame(array(), $storageEngine->getErrors());
-        $this->assertSame(array(), $storageEngine->getError('engine'));
+        $this->assertSame(array(), $storageEngine->getErrorsMessage());
+        $this->assertSame(array(), $storageEngine->getErrorMessage('engine'));
 
         $expected   = sprintf('ENGINE=%s', StorageEngine::CSV);
         $actual     = $storageEngine->build();
@@ -105,8 +105,8 @@ class StorageEngineTest extends AbstractTest
         $this->assertSame($expected, $actual);
         $this->assertFalse($storageEngine->hasErrors());
         $this->assertFalse($storageEngine->hasError('engine'));
-        $this->assertSame(array(), $storageEngine->getErrors());
-        $this->assertSame(array(), $storageEngine->getError('engine'));
+        $this->assertSame(array(), $storageEngine->getErrorsMessage());
+        $this->assertSame(array(), $storageEngine->getErrorMessage('engine'));
 
         //----------------------------------------------
         $engine       = 'aaaaaaaa';
@@ -117,7 +117,7 @@ class StorageEngineTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($storageEngine->hasErrors());
         $this->assertTrue($storageEngine->hasError('engine'));
-        $this->assertSame(array('engine' => array($message)), $storageEngine->getErrors());
-        $this->assertSame(array($message), $storageEngine->getError('engine'));
+        $this->assertSame(array('engine' => array($message)), $storageEngine->getErrorsMessage());
+        $this->assertSame(array($message), $storageEngine->getErrorMessage('engine'));
     }
 }

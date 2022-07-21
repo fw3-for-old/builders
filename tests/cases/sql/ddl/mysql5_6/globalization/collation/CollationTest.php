@@ -48,13 +48,13 @@ class CollationTest extends AbstractTest
 
         $this->assertFalse($actual->hasErrors());
         $this->assertFalse($actual->hasError('charset'));
-        $this->assertSame(array(), $actual->getErrors());
-        $this->assertSame(array(), $actual->getError('charset'));
+        $this->assertSame(array(), $actual->getErrorsMessage());
+        $this->assertSame(array(), $actual->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasErrors());
         $this->assertFalse($collation->hasError('charset'));
-        $this->assertSame(array(), $collation->getErrors());
-        $this->assertSame(array(), $collation->getError('charset'));
+        $this->assertSame(array(), $collation->getErrorsMessage());
+        $this->assertSame(array(), $collation->getErrorMessage('charset'));
 
         $expected   = Collation::DEFAULT_SUFFIX;
         $actual     = $collation->suffix();
@@ -62,8 +62,8 @@ class CollationTest extends AbstractTest
 
         $this->assertFalse($collation->hasErrors());
         $this->assertFalse($collation->hasError('suffix'));
-        $this->assertSame(array(), $collation->getErrors());
-        $this->assertSame(array(), $collation->getError('suffix'));
+        $this->assertSame(array(), $collation->getErrorsMessage());
+        $this->assertSame(array(), $collation->getErrorMessage('suffix'));
 
         $expected   = Collation::DEFAULT_LANG;
         $actual     = $collation->lang();
@@ -71,8 +71,8 @@ class CollationTest extends AbstractTest
 
         $this->assertFalse($collation->hasErrors());
         $this->assertFalse($collation->hasError('lang'));
-        $this->assertSame(array(), $collation->getErrors());
-        $this->assertSame(array(), $collation->getError('lang'));
+        $this->assertSame(array(), $collation->getErrorsMessage());
+        $this->assertSame(array(), $collation->getErrorMessage('lang'));
 
         $expected   = sprintf('DEFAULT COLLATE=%s_%s_%s', Charset::DEFAULT_CHARSET, Collation::DEFAULT_LANG, Collation::DEFAULT_SUFFIX);
         $actual     = $collation->build();
@@ -90,19 +90,19 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
 
         $this->assertFalse($actual->hasErrors());
-        $this->assertSame(array(), $actual->getErrors());
+        $this->assertSame(array(), $actual->getErrorsMessage());
 
         $this->assertFalse($actual->hasError('charset'));
-        $this->assertSame(array(), $actual->getError('charset'));
+        $this->assertSame(array(), $actual->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('charset'));
-        $this->assertSame(array(), $collation->getError('charset'));
+        $this->assertSame(array(), $collation->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('suffix'));
-        $this->assertSame(array(), $collation->getError('suffix'));
+        $this->assertSame(array(), $collation->getErrorMessage('suffix'));
 
         $this->assertFalse($collation->hasError('lang'));
-        $this->assertSame(array(), $collation->getError('lang'));
+        $this->assertSame(array(), $collation->getErrorMessage('lang'));
 
         $expected   = Charset::CP932;
         $actual     = $collation->charset();
@@ -134,19 +134,19 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
 
         $this->assertFalse($actual->hasErrors());
-        $this->assertSame(array(), $actual->getErrors());
+        $this->assertSame(array(), $actual->getErrorsMessage());
 
         $this->assertFalse($actual->hasError('charset'));
-        $this->assertSame(array(), $actual->getError('charset'));
+        $this->assertSame(array(), $actual->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('charset'));
-        $this->assertSame(array(), $collation->getError('charset'));
+        $this->assertSame(array(), $collation->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('suffix'));
-        $this->assertSame(array(), $collation->getError('suffix'));
+        $this->assertSame(array(), $collation->getErrorMessage('suffix'));
 
         $this->assertFalse($collation->hasError('lang'));
-        $this->assertSame(array(), $collation->getError('lang'));
+        $this->assertSame(array(), $collation->getErrorMessage('lang'));
 
         $expected   = Charset::CP932;
         $actual     = $collation->charset();
@@ -179,19 +179,19 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
 
         $this->assertFalse($actual->hasErrors());
-        $this->assertSame(array(), $actual->getErrors());
+        $this->assertSame(array(), $actual->getErrorsMessage());
 
         $this->assertFalse($actual->hasError('charset'));
-        $this->assertSame(array(), $actual->getError('charset'));
+        $this->assertSame(array(), $actual->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('charset'));
-        $this->assertSame(array(), $collation->getError('charset'));
+        $this->assertSame(array(), $collation->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('suffix'));
-        $this->assertSame(array(), $collation->getError('suffix'));
+        $this->assertSame(array(), $collation->getErrorMessage('suffix'));
 
         $this->assertFalse($collation->hasError('lang'));
-        $this->assertSame(array(), $collation->getError('lang'));
+        $this->assertSame(array(), $collation->getErrorMessage('lang'));
 
         $expected   = Charset::CP932;
         $actual     = $collation->charset();
@@ -224,19 +224,19 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
 
         $this->assertFalse($actual->hasErrors());
-        $this->assertSame(array(), $actual->getErrors());
+        $this->assertSame(array(), $actual->getErrorsMessage());
 
         $this->assertFalse($actual->hasError('charset'));
-        $this->assertSame(array(), $actual->getError('charset'));
+        $this->assertSame(array(), $actual->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('charset'));
-        $this->assertSame(array(), $collation->getError('charset'));
+        $this->assertSame(array(), $collation->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('suffix'));
-        $this->assertSame(array(), $collation->getError('suffix'));
+        $this->assertSame(array(), $collation->getErrorMessage('suffix'));
 
         $this->assertFalse($collation->hasError('lang'));
-        $this->assertSame(array(), $collation->getError('lang'));
+        $this->assertSame(array(), $collation->getErrorMessage('lang'));
 
         $expected   = Charset::CP932;
         $actual     = $collation->charset();
@@ -268,19 +268,19 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
 
         $this->assertFalse($actual->hasErrors());
-        $this->assertSame(array(), $actual->getErrors());
+        $this->assertSame(array(), $actual->getErrorsMessage());
 
         $this->assertFalse($actual->hasError('charset'));
-        $this->assertSame(array(), $actual->getError('charset'));
+        $this->assertSame(array(), $actual->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('charset'));
-        $this->assertSame(array(), $collation->getError('charset'));
+        $this->assertSame(array(), $collation->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('suffix'));
-        $this->assertSame(array(), $collation->getError('suffix'));
+        $this->assertSame(array(), $collation->getErrorMessage('suffix'));
 
         $this->assertFalse($collation->hasError('lang'));
-        $this->assertSame(array(), $collation->getError('lang'));
+        $this->assertSame(array(), $collation->getErrorMessage('lang'));
 
         $expected   = Charset::CP932;
         $actual     = $collation->charset();
@@ -313,19 +313,19 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
 
         $this->assertFalse($actual->hasErrors());
-        $this->assertSame(array(), $actual->getErrors());
+        $this->assertSame(array(), $actual->getErrorsMessage());
 
         $this->assertFalse($actual->hasError('charset'));
-        $this->assertSame(array(), $actual->getError('charset'));
+        $this->assertSame(array(), $actual->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('charset'));
-        $this->assertSame(array(), $collation->getError('charset'));
+        $this->assertSame(array(), $collation->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('suffix'));
-        $this->assertSame(array(), $collation->getError('suffix'));
+        $this->assertSame(array(), $collation->getErrorMessage('suffix'));
 
         $this->assertFalse($collation->hasError('lang'));
-        $this->assertSame(array(), $collation->getError('lang'));
+        $this->assertSame(array(), $collation->getErrorMessage('lang'));
 
         $expected   = Charset::CP932;
         $actual     = $collation->charset();
@@ -354,19 +354,19 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
 
         $this->assertFalse($actual->hasErrors());
-        $this->assertSame(array(), $actual->getErrors());
+        $this->assertSame(array(), $actual->getErrorsMessage());
 
         $this->assertFalse($actual->hasError('charset'));
-        $this->assertSame(array(), $actual->getError('charset'));
+        $this->assertSame(array(), $actual->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('charset'));
-        $this->assertSame(array(), $collation->getError('charset'));
+        $this->assertSame(array(), $collation->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('suffix'));
-        $this->assertSame(array(), $collation->getError('suffix'));
+        $this->assertSame(array(), $collation->getErrorMessage('suffix'));
 
         $this->assertFalse($collation->hasError('lang'));
-        $this->assertSame(array(), $collation->getError('lang'));
+        $this->assertSame(array(), $collation->getErrorMessage('lang'));
 
         $expected   = Charset::CP932;
         $actual     = $collation->charset();
@@ -395,19 +395,19 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
 
         $this->assertFalse($actual->hasErrors());
-        $this->assertSame(array(), $actual->getErrors());
+        $this->assertSame(array(), $actual->getErrorsMessage());
 
         $this->assertFalse($actual->hasError('charset'));
-        $this->assertSame(array(), $actual->getError('charset'));
+        $this->assertSame(array(), $actual->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('charset'));
-        $this->assertSame(array(), $collation->getError('charset'));
+        $this->assertSame(array(), $collation->getErrorMessage('charset'));
 
         $this->assertFalse($collation->hasError('suffix'));
-        $this->assertSame(array(), $collation->getError('suffix'));
+        $this->assertSame(array(), $collation->getErrorMessage('suffix'));
 
         $this->assertFalse($collation->hasError('lang'));
-        $this->assertSame(array(), $collation->getError('lang'));
+        $this->assertSame(array(), $collation->getErrorMessage('lang'));
 
         $expected   = Charset::LATIN1;
         $actual     = $collation->charset();
@@ -514,8 +514,8 @@ class CollationTest extends AbstractTest
         $this->assertSame($expected, $actual->charset());
         $this->assertFalse($charset->hasErrors());
         $this->assertFalse($charset->hasError('charset'));
-        $this->assertSame(array(), $charset->getErrors());
-        $this->assertSame(array(), $charset->getError('charset'));
+        $this->assertSame(array(), $charset->getErrorsMessage());
+        $this->assertSame(array(), $charset->getErrorMessage('charset'));
 
         //----------------------------------------------
         $collation      = Collation::factory();
@@ -527,8 +527,8 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($collation->hasErrors());
         $this->assertTrue($collation->hasError('charset'));
-        $this->assertSame(array('charset' => array($message)), $collation->getErrors());
-        $this->assertSame(array($message), $collation->getError('charset'));
+        $this->assertSame(array('charset' => array($message)), $collation->getErrorsMessage());
+        $this->assertSame(array($message), $collation->getErrorMessage('charset'));
 
         //----------------------------------------------
         // Collation経由ではnullを未知の文字セットとして設定する事は出来ない
@@ -541,8 +541,8 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($collation->hasErrors());
         $this->assertFalse($collation->hasError('charset'));
-        $this->assertNotSame(array('charset' => array($message)), $collation->getErrors());
-        $this->assertNotSame(array($message), $collation->getError('charset'));
+        $this->assertNotSame(array('charset' => array($message)), $collation->getErrorsMessage());
+        $this->assertNotSame(array($message), $collation->getErrorMessage('charset'));
 
 
     }
@@ -561,8 +561,8 @@ class CollationTest extends AbstractTest
         $this->assertSame($expected, $collation->lang());
         $this->assertFalse($collation->hasErrors());
         $this->assertFalse($collation->hasError('lang'));
-        $this->assertSame(array(), $collation->getErrors());
-        $this->assertSame(array(), $collation->getError('lang'));
+        $this->assertSame(array(), $collation->getErrorsMessage());
+        $this->assertSame(array(), $collation->getErrorMessage('lang'));
 
         //----------------------------------------------
         $collation  = Collation::factory();
@@ -574,8 +574,8 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($collation->hasErrors());
         $this->assertTrue($collation->hasError('lang'));
-        $this->assertSame(array('lang' => array($message)), $collation->getErrors());
-        $this->assertSame(array($message), $collation->getError('lang'));
+        $this->assertSame(array('lang' => array($message)), $collation->getErrorsMessage());
+        $this->assertSame(array($message), $collation->getErrorMessage('lang'));
 
         //----------------------------------------------
         // Collation経由ではnullを未知の文字名として設定する事は出来ない
@@ -588,8 +588,8 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertFalse($collation->hasErrors());
         $this->assertFalse($collation->hasError('lang'));
-        $this->assertNotSame(array('lang' => array($message)), $collation->getErrors());
-        $this->assertNotSame(array($message), $collation->getError('lang'));
+        $this->assertNotSame(array('lang' => array($message)), $collation->getErrorsMessage());
+        $this->assertNotSame(array($message), $collation->getErrorMessage('lang'));
 
         //----------------------------------------------
         $collation  = Collation::factory()->general();
@@ -628,8 +628,8 @@ class CollationTest extends AbstractTest
         $this->assertSame($expected, $collation->suffix());
         $this->assertFalse($collation->hasErrors());
         $this->assertFalse($collation->hasError('suffix'));
-        $this->assertSame(array(), $collation->getErrors());
-        $this->assertSame(array(), $collation->getError('suffix'));
+        $this->assertSame(array(), $collation->getErrorsMessage());
+        $this->assertSame(array(), $collation->getErrorMessage('suffix'));
 
         //----------------------------------------------
         $collation  = Collation::factory();
@@ -641,8 +641,8 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($collation->hasErrors());
         $this->assertTrue($collation->hasError('suffix'));
-        $this->assertSame(array('suffix' => array($message)), $collation->getErrors());
-        $this->assertSame(array($message), $collation->getError('suffix'));
+        $this->assertSame(array('suffix' => array($message)), $collation->getErrorsMessage());
+        $this->assertSame(array($message), $collation->getErrorMessage('suffix'));
 
         //----------------------------------------------
         $collation  = Collation::factory();
@@ -654,8 +654,8 @@ class CollationTest extends AbstractTest
         $this->assertInstanceOf($expected, $actual);
         $this->assertTrue($collation->hasErrors());
         $this->assertTrue($collation->hasError('suffix'));
-        $this->assertSame(array('suffix' => array($message)), $collation->getErrors());
-        $this->assertSame(array($message), $collation->getError('suffix'));
+        $this->assertSame(array('suffix' => array($message)), $collation->getErrorsMessage());
+        $this->assertSame(array($message), $collation->getErrorMessage('suffix'));
 
         //----------------------------------------------
         $collation  = Collation::factory()->accentInsensitive();

@@ -394,6 +394,17 @@ class ColumnDefinition extends AbstractDdlBuilder
     }
 
     /**
+     * このカラムをjson型とします。
+     *
+     * @return  static  このインスタンス
+     */
+    public function json()
+    {
+        $this->dataType = DataType::json();
+        return $this;
+    }
+
+    /**
      * このカラムに長さを設定します。
      *
      * @return  static  このインスタンス
